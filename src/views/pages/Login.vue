@@ -69,10 +69,10 @@ export default {
         this.loading = false;
 
         }else{
-          console.log('signing in')
+          // console.log('signing in')
           firebase.auth().signInWithEmailAndPassword(this.email,this.password)
-          .then(resp => {
-            console.log(resp)
+          .then(() => {
+            // console.log(resp)
             this.loading = false;
             router.push('/')
           })

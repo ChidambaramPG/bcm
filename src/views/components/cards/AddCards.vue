@@ -209,13 +209,13 @@ export default {
 
                 var dataURI = canvas.toDataURL('image/jpeg', 1);
                 
-                console.log(dataURI)
+                // console.log(dataURI)
                 parent.image = dataURI;
             };
         img.src = datas;
     },
     handleCardSave() {
-      console.log("adding card");
+      // console.log("adding card");
       // let user = firebase.auth().currentUser;
 
       if (this.image == "") {
@@ -239,18 +239,18 @@ export default {
           cPhone: this.cPhone,
           cEmail: this.cEmail
         };
-        console.log(cardObj);
+        // console.log(cardObj);
         firebase
           .firestore()
           .collection("Cards")
           .add(cardObj)
-          .then(resp => {
-            console.log(resp);
+          .then(() => {
+            // console.log(resp);
             this.isLoading = false;
             store.commit("setCardsSection", "table");
           })
-          .catch(error => {
-            console.log(error);
+          .catch( () => {
+            // console.log(error);
             this.isLoading = false;
           });
       }
