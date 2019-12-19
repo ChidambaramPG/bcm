@@ -234,7 +234,7 @@ export default {
       img.src = datas;
     },
     handlePasswordCustomizer(event) {
-      console.log(event);
+      // console.log(event);
       if (!event.target.checked) {
         this.useCustomPass = true;
       } else {
@@ -243,6 +243,7 @@ export default {
     },
     handleAddUser() {
       let error = [];
+      this.errorMessages = []
       if (this.name == null || this.name == "") {
         error.push("name is required");
       }
@@ -284,8 +285,8 @@ export default {
       }
 
       if (error.length < 1) {
-        console.log("everything is present");
-        console.log(this.email, this.password);
+        // console.log("everything is present");
+        // console.log(this.email, this.password);
 
         let userObj = {
           name: this.name,
@@ -307,9 +308,10 @@ export default {
 
         createUserObj(userObj).then(result => {
 
-          console.log("function call success", result);
+          // console.log("function call ", result.data.status);
 
-          if (result.status == "success") {
+          if (result.data.status == "success") {
+            // console.log('inside success conditon')
             let createProfile = firebase
               .functions()
               .httpsCallable("handleUserProfileCreation");
@@ -324,21 +326,26 @@ export default {
               state: this.state,
               country: this.country,
               image: this.image,
-              uid: result
+              uid: result.data.uid
             };
 
-            createProfile(profileObj).then(result2 => {
-              console.log("profileCreationSuccess", result2);
-            });
+            createProfile(profileObj).then(() => {
+              // console.log("profileCreationSuccess");
+              this.showSucessMessage = true;
+            }).catch(error => {
+              this.errorMessages = error;
+            })
 
           } else {
-            console.log(result);
+            // console.log(result);
+            this.errorMessages.push(result.data.message)
           }
         }).catch(err => {
-          console.log(err)
+          // console.log(err)
+          this.errorMessages.push(err.errorInfo.message);
         });
       } else {
-        this.errorMessages = error;
+        this.errorMessages.push(error);
       }
     }
   }

@@ -17,107 +17,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(user,index) in getUsers" :key="index">
                 <td>
-                  <img class="card-img img-responsive rounded-circle" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"/>
+                  <img class="card-img img-responsive rounded-circle" :src="user.image"/>
                 </td>
                 <td>
-                  Bruce Wayne
+                  {{user.name}}
                 </td>
-                <td>Management</td>
-                <td>555-777-3434</td>
-                <td>brucewayne@gmail.com</td>
+                <td>{{user.type}}</td>
+                <td>{{user.phone}}</td>
+                <td>{{user.email}}</td>
                 
-                <td>12B Baker Street</td>
+                <td>{{user.address}}</td>
                 <td>
                   <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
                     <label class="custom-control-label" for="customCheck1"></label>
                   </div>
                 </td>
-                
-              </tr>
-              <tr>
-                <td>
-                  <img class="card-img img-responsive rounded-circle" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"/>
-                </td>
-                <td>
-                  Bruce Wayne
-                </td>
-                <td>Management</td>
-                <td>555-777-3434</td>
-                <td>brucewayne@gmail.com</td>
-                
-                <td>12B Baker Street</td>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                    <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>
-                  <img class="card-img img-responsive rounded-circle" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"/>
-                </td>
-                <td>
-                  Bruce Wayne
-                </td>
-                <td>Management</td>
-                <td>555-777-3434</td>
-                <td>brucewayne@gmail.com</td>
-                
-                <td>12B Baker Street</td>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                    <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>
-                  <img class="card-img img-responsive rounded-circle" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"/>
-                </td>
-                <td>
-                  Bruce Wayne
-                </td>
-                <td>Management</td>
-                <td>555-777-3434</td>
-                <td>brucewayne@gmail.com</td>
-                
-                <td>12B Baker Street</td>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                    <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-                
-              </tr>
-              <tr>
-                <td>
-                  <img class="card-img img-responsive rounded-circle" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"/>
-                </td>
-                <td>
-                  Bruce Wayne
-                </td>
-                <td>Management</td>
-                <td>555-777-3434</td>
-                <td>brucewayne@gmail.com</td>
-                
-                <td>12B Baker Street</td>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                    <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-                
-              </tr>
-              
+              </tr>              
             </tbody>
           </table>
         </div>
@@ -158,6 +76,14 @@ export default {
       store.commit('toggleDeleteCardModal')
     },
 
+  },
+  computed:{
+    getUsers(){
+      return store.state.allUsers;
+    }
+  },
+  created(){
+    store.dispatch('fetchAllUsers')
   }
 };
 </script>

@@ -40,16 +40,18 @@
                 </td>
                 <td>Administrator</td>
                 <td>
-                  <a href="" @click.prevent="() => showEditCard()"
+                  <a href=""  @click.prevent="() => showEditCard(index)"
                     ><i class="fas fa-edit text-success"></i
                   ></a>
                   <a href="" @click.prevent="() => showDeleteCardModal()"
                     ><i class="fas fa-times text-danger"></i
                   ></a>
                 </td>
-                <td>
-                  <p><span class="badge badge-info">Laptop Service</span></p>
-                  <p><span class="badge badge-info">Mobile Service</span></p>
+                <td v-if="card.tags == null">
+                  <span class="badge badge-warning">No Tag Added</span>                  
+                </td>
+                <td v-else>
+                  <span class="badge badge-info tag-pill" v-for="(tag,ind) in card.tags" :key="ind">{{tag}}</span>
                 </td>
               </tr>
             </tbody>
@@ -86,13 +88,18 @@ export default {
   name: "BusinessCards",
   methods: {
     showEditCardsModal() {
+      
       store.commit("toggleEditCardModal");
     },
     showDeleteCardsModal() {
       store.commit("toggleDeleteCardModal");
     },
-    showEditCard() {
+    showEditCard(index) {
+      console.log(event)
+      console.log(index)
+      console.log(this.getAllCards[index])
       store.commit("setCardsSection", "edit");
+      store.commit('setSelectedCard',this.getAllCards[index])
     }
   },
   computed: {
@@ -150,5 +157,8 @@ li.page-item.active > a {
 }
 .card-img {
   width: 200px;
+}
+.tag-pill{
+  margin-right:10px;
 }
 </style>

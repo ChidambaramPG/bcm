@@ -13,7 +13,7 @@ export default new Vuex.Store({
     brochures:[],
     businessCards:[],
     categories:[],
-    users:[],
+    allUsers:[],
 
     sidebarVisible:true,
 
@@ -34,14 +34,15 @@ export default new Vuex.Store({
     newCategoryModalVisible:false,
     
     // pagnation
-    cardsListPage:1
+    cardsListPage:1,
+
+    // selected items
+    selectedCard:[],
+    selectedCardTags:[],
 
 
   },
   mutations: {
-    toggleSidebar: state=>{
-      state.sidebarVisible = !state.sidebarVisible
-    },
     setActivePage: (state,payload) => {
       state.activePage = payload;
     },
@@ -82,25 +83,41 @@ export default new Vuex.Store({
       state.categorySection = payload;
     },
     setBusinessCards:(state,payload) => {
-      state.businessCards;
+      // state.businessCards;
       state.businessCards = payload;
-    }
+    },
+    setSelectedCard:(state,payload)=> {
+      state.selectedCard = payload;
+      state.selectedCardTags = payload.tags;  
+    },
+    addTagsToCard: (state,payload) => {
+      state.selectedCardTags.push(payload);
+    },
   },
   actions: {
     fetchAllBusinessCards:({state}) => {
       
       firebase.firestore().collection("Cards").onSnapshot(resp => {
-        console.log(resp)
+        // console.log(resp)
         let cards = [];
         resp.forEach(item => {
-          cards.push(item.data())
+          cards.push({...item.data(),cid:item.id})
         });
         state.businessCards = cards;
       })
+    },
+    fetchAllUsers: ({state}) => {
+      firebase.firestore().collection("Users").onSnapshot(resp => {
+        let users = [];
+        resp.forEach(item => {
+          users.push({...item.data(),uid:item.id})
+        });
+        state.allUsers = users;
+      })
     }
   },
-  modules: {},
-  getters:{
-    
+  modules: {
+
   }
+  
 });

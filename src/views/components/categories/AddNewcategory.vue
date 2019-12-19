@@ -1,4 +1,4 @@
-<template>
+{{<template>
   <section>
     
 
@@ -20,184 +20,40 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(card,index) in getAllCards" :key="index">
                 <td>
                   <div class="custom-control custom-checkbox">
                     <input
                       type="checkbox"
                       class="custom-control-input"
-                      id="customCheck1"
-                      checked
+                      :id="card.cid"
+                      @click="(event) =>handleCardSelection(event,index)"
                     />
                     <label
                       class="custom-control-label"
-                      for="customCheck1"
+                      :for="card.cid"
                     ></label>
                   </div>
                 </td>
                 <td>
                   <img
                     class="card-img img-responsive"
-                    src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
+                    :src="card.image"
                   />
                 </td>
                 <td>
-                  We Care Services
+                  {{card.name}}
                 </td>
 
-                <td>555-777-3434</td>
+                <td>{{card.phone}}</td>
 
                 <td>
-                  <p>
-                    <span class="badge badge-info">Laptop Service</span>
-                  </p>
-                  <p>
-                    <span class="badge badge-info">Mobile Service</span>
+                  <p v-for="(tag,ind) in card.tags" :key="ind">
+                    <span class="badge badge-info">{{tag}}</span>
                   </p>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="customCheck1"
-                      checked
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="customCheck1"
-                    ></label>
-                  </div>
-                </td>
-                <td>
-                  <img
-                    class="card-img img-responsive"
-                    src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                  />
-                </td>
-                <td>
-                  We Care Services
-                </td>
-
-                <td>555-777-3434</td>
-
-                <td>
-                  <p>
-                    <span class="badge badge-info">Laptop Service</span>
-                  </p>
-                  <p>
-                    <span class="badge badge-info">Mobile Service</span>
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="customCheck1"
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="customCheck1"
-                    ></label>
-                  </div>
-                </td>
-                <td>
-                  <img
-                    class="card-img img-responsive"
-                    src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                  />
-                </td>
-                <td>
-                  We Care Services
-                </td>
-
-                <td>555-777-3434</td>
-
-                <td>
-                  <p>
-                    <span class="badge badge-info">Laptop Service</span>
-                  </p>
-                  <p>
-                    <span class="badge badge-info">Mobile Service</span>
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="customCheck1"
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="customCheck1"
-                    ></label>
-                  </div>
-                </td>
-                <td>
-                  <img
-                    class="card-img img-responsive"
-                    src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                  />
-                </td>
-                <td>
-                  We Care Services
-                </td>
-
-                <td>555-777-3434</td>
-
-                <td>
-                  <p>
-                    <span class="badge badge-info">Laptop Service</span>
-                  </p>
-                  <p>
-                    <span class="badge badge-info">Mobile Service</span>
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input
-                      type="checkbox"
-                      class="custom-control-input"
-                      id="customCheck1"
-                      checked
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="customCheck1"
-                    ></label>
-                  </div>
-                </td>
-                <td>
-                  <img
-                    class="card-img img-responsive"
-                    src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                  />
-                </td>
-                <td>
-                  We Care Services
-                </td>
-
-                <td>555-777-3434</td>
-
-                <td>
-                  <p>
-                    <span class="badge badge-info">Laptop Service</span>
-                  </p>
-                  <p>
-                    <span class="badge badge-info">Mobile Service</span>
-                  </p>
-                </td>
-              </tr>
+              
             </tbody>
           </table>
           
@@ -221,39 +77,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="(card,index) in cardsSelected" :key="index">
               <td>
                 <img
                   class="card-img img-responsive"
-                  src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
+                  :src="card.image"
                 />
               </td>
               <td>
-                We Care Services
+                {{card.name}}
               </td>
             </tr>
-            <tr>
-              <td>
-                <img
-                  class="card-img img-responsive"
-                  src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                />
-              </td>
-              <td>
-                We Care Services
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img
-                  class="card-img img-responsive"
-                  src="https://www.digitalprinting.co.uk/media/images/products/slides/2/business-cards-1.jpg"
-                />
-              </td>
-              <td>
-                We Care Services
-              </td>
-            </tr>
+            
           </tbody>
         </table>
         <div class="row">
@@ -280,11 +115,36 @@
 import store from "../../../store/index.js";
 export default {
   name: "AddNewCategory",
+  data(){
+    return{
+      cardsFetched:false,
+      cardsSelected:[]
+    }
+  },
   methods: {
     handleBackToCategory() {
       store.commit("setCategorySection", "table");
+    },
+    handleCardSelection(event,id){
+      console.log(event,id)
+      if(event.target.checked){
+        this.cardsSelected.push(this.getAllCards[id])
+      }
+      
+    }
+  },
+  computed: {
+    getAllCards(){
+      return store.state.businessCards;
+    }
+  },
+  created(){
+    if(this.getAllCards.length<1 && !this.cardsFetched){
+      store.dispatch('fetchAllBusinessCards');
+      this.cardsFetched = true;
     }
   }
+
 };
 </script>
 
@@ -304,3 +164,4 @@ section {
   font-size: 14px;
 }
 </style>
+}}

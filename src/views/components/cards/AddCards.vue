@@ -122,6 +122,30 @@
           </div>
 
           <div class="row">
+            <div class="col-md-10">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="personal,events,etc.."
+                id="tag"
+              />
+            </div>
+            <div class="col-md-2">
+              <button
+                class="btn btn-block rounded btn-new"
+                @click.prevent="handleAddTag"
+              >
+                <span>Add Tag</span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-10 " >
+              <span class="badge badge-info tag-pills" v-for="(tag,index) in tags" :key="index">{{tag}}</span>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-4">
               <button
                 class="btn btn-block rounded btn-new"
@@ -170,10 +194,15 @@ export default {
       cName: null,
       cPhone: null,
       cEmail: null,
-      isLoading: false
+      isLoading: false,
+      tags:[]
     };
   },
   methods: {
+    handleAddTag() {
+      this.tags.push(document.getElementById('tag').value)
+      document.getElementById('tag').value = ''
+    },
     handleBackToCards() {
       store.commit("setCardsSection", "table");
     },
@@ -237,7 +266,8 @@ export default {
           comments: this.comments,
           cName: this.cName,
           cPhone: this.cPhone,
-          cEmail: this.cEmail
+          cEmail: this.cEmail,
+          tags:this.tags
         };
         // console.log(cardObj);
         firebase
