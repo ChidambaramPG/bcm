@@ -24,13 +24,16 @@ export default {
       return name.charAt(0).toUpperCase()+name.slice(1)
     },
     setCategoriesTable(){
-
+      store.commit('setSelectedCategory',this.index)
     }
   },
-  props: ["name"],
+  props: ["name","index"],
   computed:{
       activeCategory(){
           return store.state.categorySubTag;
+      },
+      getSelectedCategory(){
+        return store.state.selectedCategory
       }
   }
 };

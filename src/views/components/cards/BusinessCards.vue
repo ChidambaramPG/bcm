@@ -8,11 +8,11 @@
             <thead class="table-head">
               <tr>
                 <th>Card</th>
-                <th>Company Name</th>
-                <th>Address</th>
-                <th>Contact Person</th>
-                <th>Phone No</th>
-                <th>Added By</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Organization</th>
+                <th>Tier</th>
+                <th>Phone</th>
                 <th>Action</th>
                 <th>Tags</th>
               </tr>
@@ -23,22 +23,25 @@
                   <img class="card-img img-responsive" :src="card.image" />
                 </td>
                 <td>
-                  <span v-if="card.name != null">{{ card.name }}</span>
+                  <span v-if="card.cFirstname != null">{{ card.cFirstname }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.address != null">{{ card.address }}</span>
+                  <span v-if="card.cType != null">{{ card.cType }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.cName != null">{{ card.cName }}</span>
+                  <span v-if="card.cOrganization != null">{{ card.cOrganization }}</span>
+                  <span v-else>Not Added</span>
+                </td>
+                <td>
+                  <span v-if="card.cTier != null">{{ card.cTier }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
                   <span v-if="card.cPhone != null">{{ card.cPhone }}</span>
                   <span v-else>Not Added</span>
                 </td>
-                <td>Administrator</td>
                 <td>
                   <a href=""  @click.prevent="() => showEditCard(index)"
                     ><i class="fas fa-edit text-success"></i
@@ -47,7 +50,7 @@
                     ><i class="fas fa-times text-danger"></i
                   ></a>
                 </td>
-                <td v-if="card.tags == null">
+                <td v-if="card.tags.length < 1">
                   <span class="badge badge-warning">No Tag Added</span>                  
                 </td>
                 <td v-else>

@@ -29,7 +29,7 @@
       <div class="col-md-8">
         <form action="">
           <div class="row form-group">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label for="">Name</label>
               <input
                 type="text"
@@ -39,7 +39,16 @@
                 required
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
+              <label for="">Code</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="91"
+                v-model="code"
+              />
+            </div>
+            <div class="col-md-3">
               <label for="">Phone</label>
               <input
                 type="text"
@@ -180,6 +189,7 @@ export default {
   data() {
     return {
       name: null,
+      code:null,
       phone: null,
       email: null,
       type: null,
@@ -247,6 +257,9 @@ export default {
       if (this.name == null || this.name == "") {
         error.push("name is required");
       }
+      if (this.code == null || this.code == "") {
+        error.push("code is required");
+      }
       if (this.phone == null || this.phone == "") {
         error.push("phone is required");
       }
@@ -290,7 +303,7 @@ export default {
 
         let userObj = {
           name: this.name,
-          phone: this.phone,
+          phone: "+"+this.code+this.phone,
           email: this.email,
           type: this.type,
           address: this.address,

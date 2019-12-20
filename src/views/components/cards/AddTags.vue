@@ -42,6 +42,7 @@ export default {
     handleAddTag() {
       let tag = document.getElementById("tag").value;
       store.commit("addTagsToCard", tag);
+      document.getElementById("tag").value = "";
     }
   },
   computed: {

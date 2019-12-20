@@ -66,6 +66,7 @@
             type="text"
             class="form-control"
             placeholder="Category Name"
+            v-model="categoryName"
           />
         </div>
 
@@ -101,7 +102,7 @@
               </button>
             </div>
             <div class="col-md-6">
-              <button class="btn btn-block rounded btn-new">
+              <button class="btn btn-block rounded btn-new" @click="handleCategorySave">
                 <span>Save Category</span>
               </button>
             </div>
@@ -113,12 +114,14 @@
 
 <script>
 import store from "../../../store/index.js";
+import firebase from 'firebase';
 export default {
   name: "AddNewCategory",
   data(){
     return{
       cardsFetched:false,
-      cardsSelected:[]
+      cardsSelected:[],
+      categoryName:''
     }
   },
   methods: {
@@ -129,8 +132,36 @@ export default {
       console.log(event,id)
       if(event.target.checked){
         this.cardsSelected.push(this.getAllCards[id])
+      }else{
+        let temp = [];
+        this.cardsSelected.forEach(item=>{
+          if(item.cid != event.target.id){
+            temp.push(item)
+          }
+        });
+        this.cardsSelected = temp;
       }
       
+    },
+    handleCategorySave(){
+      if(this.categoryName!='' && this.cardsSelected.length > 0){
+        let catName = this.categoryName;
+        let catItems = []
+        this.cardsSelected.forEach(item=>{
+          catItems.push(item.cid);
+        })
+        firebase.firestore().collection('Groups').add({
+          items:catItems,
+          name:catName,
+          addedBy:firebase.auth().currentUser.uid,
+          addedOn:(new Date()),
+          status:'active'
+        }).then(()=> {
+          store.commit('setCategorySection','table')
+        }).catch(error => {
+          console.log(error)
+        })
+      }
     }
   },
   computed: {

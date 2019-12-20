@@ -14,6 +14,7 @@ export default new Vuex.Store({
     businessCards:[],
     categories:[],
     allUsers:[],
+    categoriesList:[],
 
     sidebarVisible:true,
 
@@ -39,6 +40,8 @@ export default new Vuex.Store({
     // selected items
     selectedCard:[],
     selectedCardTags:[],
+    selectedCategory:[]
+    
 
 
   },
@@ -88,11 +91,19 @@ export default new Vuex.Store({
     },
     setSelectedCard:(state,payload)=> {
       state.selectedCard = payload;
+      state.selectedCardTags = [];
       state.selectedCardTags = payload.tags;  
     },
     addTagsToCard: (state,payload) => {
       state.selectedCardTags.push(payload);
     },
+    setCategoriesList:(state,payload) => {
+      state.categoriesList = payload;
+    },
+    setSelectedCategory: (state,payload) => {
+      state.selectedCategory = state.categoriesList[payload];
+      state.categorySubTag = state.selectedCategory.name; 
+    }
   },
   actions: {
     fetchAllBusinessCards:({state}) => {
@@ -114,10 +125,22 @@ export default new Vuex.Store({
         });
         state.allUsers = users;
       })
+    },
+
+    fetchCategoriesList:({commit}) => {
+      let temp = [];
+      firebase.firestore().collection('Groups').where('addedBy','==',firebase.auth().currentUser.uid)
+      .get().then( resp => {
+        
+        resp.forEach(item => {
+          temp.push({...item.data(),gid:item.id})
+        })
+      })
+      commit('setCategoriesList',temp)
     }
+
   },
   modules: {
 
-  }
-  
+  },  
 });

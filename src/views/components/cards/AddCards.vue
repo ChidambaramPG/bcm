@@ -33,117 +33,158 @@
       <div class="col-md-8">
         <form action="">
           <div class="row">
-            <div class="col-md-4">
-              <label for="">Name</label>
+            <div class="col-md-3">
+              <label for="exampleFormControlSelect1">Salutaton</label>
+              <select class="form-control" id="userType" v-model="salutation">
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Ms">Ms</option>
+                <option value="Dr">Dr</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="">First Name</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Riken Keiki Safety"
+                placeholder="John"
+                v-model="cFirstname"
               />
             </div>
-            <div class="col-md-4">
-              <label for="">Phone</label>
+            <div class="col-md-3">
+              <label for="">Last Name</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="555-444-3434"
+                placeholder="Doe"
+                v-model="cLastname"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+              <label for="exampleFormControlSelect1">Type</label>
+              <select class="form-control" id="userType" v-model="cType">
+                <option value="Mr">End Customer</option>
+                <option value="Mrs">Reseller</option>
+                <option value="Ms">OEM</option>
+                <option value="Ms">Commercal</option>
+                <option value="Ms">Consumer</option>
+                <option value="Ms">Component</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <label for="">Organization</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Hp, Dell, etc.."
+                v-model="cOrganization"
+              />
+            </div>
+            <div class="col-md-3">
+              <label for="exampleFormControlSelect1">Tier</label>
+              <select class="form-control" id="userType" v-model="cTier">
+                <option value="Mr">Sales</option>
+                <option value="Mrs">Procurement</option>
+                <option value="Ms">IT Department</option>
+                <option value="Ms">Management</option>
+                <option value="Ms">Category</option>
+                <option value="Ms">Marketing</option>
+                <option value="Ms">Other</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label for="">Designation</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Manager, Head, Client, etc.."
+                v-model="cDesignation"
+              />
+            </div>
+            <div class="col-md-3">
               <label for="">Email</label>
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                placeholder="ikenkeiki@gmail.com"
+                placeholder="Doe"
+                v-model="cEmail"
               />
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
+              <label for="">Phone</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="+919746747214"
+                v-model="cPhone"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Alternate Number</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="+919746747214"
+                v-model="cAltPhone"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Role</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Decission Maker"
+                v-model="cRole"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
               <label for="">Address</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="12B Baker Street"
+                placeholder="Decission Maker"
+                v-model="cAddress"
               />
             </div>
-            <div class="col-md-6">
-              <label for="">Forecast</label>
-              <input type="text" class="form-control" placeholder="5M" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <label for="">Requirements</label>
+            <div class="col-md-3">
+              <label for="">City</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Safety CDC"
+                placeholder="Decission Maker"
+                v-model="cCity"
               />
             </div>
-            <div class="col-md-6">
-              <label for="">Comments</label>
+            <div class="col-md-3">
+              <label for="">Pincode</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Loem psum Dolor Sit Amet"
+                placeholder="Decission Maker"
+                v-model="cPincode"
               />
             </div>
-          </div>
-
-          <div class="row">
-            <!-- <label for="">Contact</label> -->
-            <div class="col-md-4">
-              <label for="">Contact person</label>
+            <div class="col-md-3">
+              <label for="">Country</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Abdul Rahman"
-              />
-            </div>
-            <div class="col-md-4">
-              <label for="">Phone</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="9746747214"
-              />
-            </div>
-            <div class="col-md-4">
-              <label for="">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="adbulrahman@gmail.com"
+                placeholder="Decission Maker"
+                v-model="cCountry"
               />
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-10">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="personal,events,etc.."
-                id="tag"
-              />
-            </div>
-            <div class="col-md-2">
-              <button
-                class="btn btn-block rounded btn-new"
-                @click.prevent="handleAddTag"
-              >
-                <span>Add Tag</span>
-              </button>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-10 " >
-              <span class="badge badge-info tag-pills" v-for="(tag,index) in tags" :key="index">{{tag}}</span>
-            </div>
-          </div>
+          <add-tags/> 
 
           <div class="row">
             <div class="col-md-4">
@@ -176,8 +217,12 @@
 <script>
 import store from "../../../store/index.js";
 import firebase from "firebase";
+import AddTags from './AddTags.vue';
 export default {
   name: "AddCards",
+  components:{
+    AddTags
+  },
   data() {
     return {
       // cardImageUrl:require('../../../assets/img/card.jpg'),
@@ -191,17 +236,30 @@ export default {
       forecast: null,
       requirements: null,
       comments: null,
-      cName: null,
-      cPhone: null,
-      cEmail: null,
+      
       isLoading: false,
-      tags:[]
+      tags: [],
+      salutation: null,
+      cFirstname: null,
+      cLastname: null,
+      cType: null,
+      cOrganization: null,
+      cTier: null,
+      cDesignation: null,
+      cEmail: null,
+      cPhone: null,
+      cAltPhone: null,
+      cRole: null,
+      cAddress: null,
+      cCity: null,
+      cPincode: null,
+      cCountry: null
     };
   },
   methods: {
     handleAddTag() {
-      this.tags.push(document.getElementById('tag').value)
-      document.getElementById('tag').value = ''
+      this.tags.push(document.getElementById("tag").value);
+      document.getElementById("tag").value = "";
     },
     handleBackToCards() {
       store.commit("setCardsSection", "table");
@@ -218,30 +276,28 @@ export default {
     },
     setImageData(data) {
       if (data != "") {
-        this.resizedataURL(data,200,200);
+        this.resizedataURL(data, 200, 200);
         this.imagePresent = true;
       }
     },
-    resizedataURL(datas, wantedWidth, wantedHeight)
-    {
-        // We create an image to receive the Data URI
-        var img = document.createElement('img');
-        let parent = this;
-        img.onload = function()
-            {
-                var canvas = document.createElement('canvas');
-                var ctx = canvas.getContext('2d');
-                canvas.width = wantedWidth;
-                canvas.height = wantedHeight;
+    resizedataURL(datas, wantedWidth, wantedHeight) {
+      // We create an image to receive the Data URI
+      var img = document.createElement("img");
+      let parent = this;
+      img.onload = function() {
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        canvas.width = wantedWidth;
+        canvas.height = wantedHeight;
 
-                ctx.drawImage(this, 0, 0, wantedWidth, wantedHeight);
+        ctx.drawImage(this, 0, 0, wantedWidth, wantedHeight);
 
-                var dataURI = canvas.toDataURL('image/jpeg', 1);
-                
-                // console.log(dataURI)
-                parent.image = dataURI;
-            };
-        img.src = datas;
+        var dataURI = canvas.toDataURL("image/jpeg", 1);
+
+        // console.log(dataURI)
+        parent.image = dataURI;
+      };
+      img.src = datas;
     },
     handleCardSave() {
       // console.log("adding card");
@@ -257,17 +313,22 @@ export default {
           addedBy: firebase.auth().currentUser.uid,
           addedOn: new Date(),
           converted: "pending",
-          name: this.name,
-          phone: this.phone,
-          email: this.email,
-          address: this.address,
-          forecast: this.forecast,
-          requirements: this.requirements,
-          comments: this.comments,
-          cName: this.cName,
-          cPhone: this.cPhone,
+          tags: this.getAddedTags,
+          salutation: this.salutation,
+          cFirstname: this.cFirstname,
+          cLastname: this.cLastname,
+          cType: this.cType,
+          cOrganization: this.cOrganization,
+          cTier: this.cTier,
+          cDesignation: this.cDesignation,
           cEmail: this.cEmail,
-          tags:this.tags
+          cPhone: this.cPhone,
+          cAltPhone: this.cAltPhone,
+          cRole: this.cRole,
+          cAddress: this.cAddress,
+          cCity: this.cCity,
+          cPincode: this.cPincode,
+          cCountry: this.cCountry,
         };
         // console.log(cardObj);
         firebase
@@ -279,11 +340,16 @@ export default {
             this.isLoading = false;
             store.commit("setCardsSection", "table");
           })
-          .catch( () => {
+          .catch(() => {
             // console.log(error);
             this.isLoading = false;
           });
       }
+    }
+  },
+  computed:{
+    getAddedTags(){
+      return store.state.selectedCardTags;
     }
   }
 };
