@@ -3,10 +3,31 @@
     <div class="table-responsive">
       <div class="row table-row">
         <div class="col-md-12">
-          <h5 class="table-title">Latest additions</h5>
+          <div class="table-header d-inline">
+            <h5 class="table-title">Latest additions</h5>
+            <tags-filter/>
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-4" v-for="(card, index) in getAllCards" :key="index">
+              <img class="card-img img-responsive" :src="card.image" />
+            </div>
+          </div> -->
+          
           <table class="table table-hover">
             <thead class="table-head">
               <tr>
+                <th><div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="select-all-cards"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="select-all-cards"
+                    ></label>
+                  </div></th>
                 <th>Card</th>
                 <th>Name</th>
                 <th>Type</th>
@@ -19,6 +40,20 @@
             </thead>
             <tbody>
               <tr v-for="(card, index) in getAllCards" :key="index">
+                <td>
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      :id="card.cid"
+                      @click="(event)=>handleSelectedCard(event,card.cid)"
+                    />
+                    <label
+                      class="custom-control-label"
+                      :for="card.cid"
+                    ></label>
+                  </div>
+                </td>
                 <td>
                   <img class="card-img img-responsive" :src="card.image" />
                 </td>
@@ -50,12 +85,9 @@
                     ><i class="fas fa-times text-danger"></i
                   ></a>
                 </td>
-                <td v-if="card.tags.length < 1">
-                  <span class="badge badge-warning">No Tag Added</span>                  
-                </td>
-                <td v-else>
-                  <span class="badge badge-info tag-pill" v-for="(tag,ind) in card.tags" :key="ind">{{tag}}</span>
-                </td>
+
+                <tag-section :data="card.tags" :cardId="card.cid"/>
+
               </tr>
             </tbody>
           </table>
@@ -87,27 +119,41 @@
 </template>
 <script>
 import store from "../../../store/index.js";
+import TagSection from './TagSection.vue';
+import TagsFilter from './TagsFilter.vue';
+
 export default {
   name: "BusinessCards",
+  components:{
+    TagSection,
+    TagsFilter
+  },
   methods: {
     showEditCardsModal() {
-      
       store.commit("toggleEditCardModal");
     },
     showDeleteCardsModal() {
       store.commit("toggleDeleteCardModal");
     },
     showEditCard(index) {
-      console.log(event)
-      console.log(index)
-      console.log(this.getAllCards[index])
       store.commit("setCardsSection", "edit");
       store.commit('setSelectedCard',this.getAllCards[index])
+    },
+    handleSelectedCard(event,cid){
+      console.log(event);
+      store.commit('setSelectedCardList',cid)
     }
+
   },
   computed: {
     getAllCards() {
-      return store.state.businessCards;
+      return store.state.filteredBusinessCards;
+    },
+    getSelectedTags(){
+      return store.state.getAllTags;
+    },
+    getCardCategoryList(){
+      return store.state.cardCategoryList;
     }
   },
   beforeCreate() {

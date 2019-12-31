@@ -64,12 +64,12 @@
             <div class="col-md-3">
               <label for="exampleFormControlSelect1">Type</label>
               <select class="form-control" id="userType" v-model="cType">
-                <option value="Mr">End Customer</option>
-                <option value="Mrs">Reseller</option>
-                <option value="Ms">OEM</option>
-                <option value="Ms">Commercal</option>
-                <option value="Ms">Consumer</option>
-                <option value="Ms">Component</option>
+                <option value="End Customer">End Customer</option>
+                <option value="Reseller">Reseller</option>
+                <option value="OEM">OEM</option>
+                <option value="Commercal">Commercal</option>
+                <option value="Consumer">Consumer</option>
+                <option value="Component">Component</option>
               </select>
             </div>
           </div>
@@ -87,13 +87,9 @@
             <div class="col-md-3">
               <label for="exampleFormControlSelect1">Tier</label>
               <select class="form-control" id="userType" v-model="cTier">
-                <option value="Mr">Sales</option>
-                <option value="Mrs">Procurement</option>
-                <option value="Ms">IT Department</option>
-                <option value="Ms">Management</option>
-                <option value="Ms">Category</option>
-                <option value="Ms">Marketing</option>
-                <option value="Ms">Other</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Consumer">Consumer</option>
+                <option value="Component">Component</option>
               </select>
             </div>
             <div class="col-md-3">

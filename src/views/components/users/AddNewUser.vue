@@ -72,9 +72,10 @@
             <div class="col-md-4">
               <label for="exampleFormControlSelect1">User type</label>
               <select class="form-control" id="userType" v-model="type">
-                <option>Management</option>
-                <option>Backend Data Entry</option>
-                <option>Data Collection</option>
+                <option value="Management">Management</option>
+                <option value="Backend Data Entry">Backend Data Entry</option>
+                <option value="Data Collection">Data Collection</option>
+                <option value="Sales">Sales</option>
               </select>
             </div>
             <div class="col-md-8">
@@ -87,7 +88,36 @@
               />
             </div>
           </div>
-          <div class="row">
+          <div class="row form-group">
+            <div class="col-md-4">
+              <label for="">Designation</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Manager,Sales, etc.."
+                v-model="designation"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Company</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="HP,Dell,etc.."
+                v-model="company"
+              />
+            </div>
+            <div class="col-md-4">
+              <label for="">Department</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="IT,Sales,etc.."
+                v-model="department"
+              />
+            </div>
+          </div>
+          <div class="row form-group">
             <div class="col-md-4">
               <label for="">District</label>
               <input
@@ -117,7 +147,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row form-group">
             <div class="col-md-6 custom-control custom-checkbox">
               <div class="custom-control custom-checkbox">
                 <input
@@ -197,6 +227,9 @@ export default {
       district: null,
       state: null,
       country: null,
+      designation:null,
+      company:null,
+      department:null,
       image: null,
       errorMessages: [],
       password: "",
@@ -284,6 +317,15 @@ export default {
       if (this.image == null || this.image == "") {
         error.push("image is required");
       }
+      if(this.designation == null || this.designation == ''){
+        error.push('designation is required');
+      }
+      if(this.company == null || this.company == ''){
+        error.push('company is required');
+      }
+      if(this.department == null || this.department == ''){
+        error.push('department is required');
+      }
 
       if (this.useCustomPass) {
         if (this.password != null || this.password != "") {
@@ -311,7 +353,10 @@ export default {
           state: this.state,
           country: this.country,
           image: this.image,
-          password: this.password
+          password: this.password,
+          designation:this.designation,
+          company:this.company,
+          department:this.department,
           // uid:resp1.user.uid
         };
 
@@ -339,7 +384,10 @@ export default {
               state: this.state,
               country: this.country,
               image: this.image,
-              uid: result.data.uid
+              uid: result.data.uid,
+              designation:this.designation,
+              company:this.company,
+              department:this.department,
             };
 
             createProfile(profileObj).then(() => {

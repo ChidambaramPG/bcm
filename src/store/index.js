@@ -12,9 +12,12 @@ export default new Vuex.Store({
     usersCount:20,
     brochures:[],
     businessCards:[],
+    filteredBusinessCards:[],
     categories:[],
     allUsers:[],
     categoriesList:[],
+    allTags:[],
+    cardCategoryList:[],
 
     sidebarVisible:true,
 
@@ -86,7 +89,7 @@ export default new Vuex.Store({
       state.categorySection = payload;
     },
     setBusinessCards:(state,payload) => {
-      // state.businessCards;
+      state.filteredBusinessCards = payload;
       state.businessCards = payload;
     },
     setSelectedCard:(state,payload)=> {
@@ -103,17 +106,63 @@ export default new Vuex.Store({
     setSelectedCategory: (state,payload) => {
       state.selectedCategory = state.categoriesList[payload];
       state.categorySubTag = state.selectedCategory.name; 
+    },
+    setTagsList: (state,payload) => {
+      state.allTags = [];
+      state.allTags = payload;
+    },
+    setSelectedTags: (state,payload) => {
+      state.allTags.forEach(item => {
+        if(item.gid == payload){
+          if(item.selected == false){
+            item.selected = true;
+          }else{
+            item.selected = false;
+          }
+        }
+      })
+      let selectedItems = [];
+      state.businessCards.forEach((item) => {
+        // console.log(tags)
+        let tagPresent = true;
+        state.allTags.forEach(({gid,selected}) => {
+          if(selected == true){
+            if(!item.tags.includes(gid)){
+              tagPresent = false;
+            }
+          }          
+        })
+        if(tagPresent){
+          selectedItems.push(item)
+        }
+      })
+      // console.log(new Set(selectedItems));
+      state.filteredBusinessCards = new Set(selectedItems);
+    },
+    setSelectedCardList: (state,payload) => {
+      let temp = [];
+      state.businessCards.forEach(item => {
+        if(item.cid == payload){
+          if(item.selected == false){
+            item.selected = true;
+          }else{
+            item.selected = false;
+          }
+        }   
+        temp.push(item);     
+      })
+      state.cardCategoryList = temp;
     }
   },
   actions: {
     fetchAllBusinessCards:({state}) => {
       
       firebase.firestore().collection("Cards").onSnapshot(resp => {
-        // console.log(resp)
         let cards = [];
         resp.forEach(item => {
-          cards.push({...item.data(),cid:item.id})
+          cards.push({...item.data(),cid:item.id,selected:false})
         });
+        state.filteredBusinessCards = cards;
         state.businessCards = cards;
       })
     },
@@ -137,6 +186,17 @@ export default new Vuex.Store({
         })
       })
       commit('setCategoriesList',temp)
+    },
+    fetchAllTags: ({commit}) => {
+      let temp = [];
+      firebase.firestore().collection('Tags')
+      .onSnapshot(resp => {
+        
+        resp.forEach(item => {
+          temp.push({...item.data(),gid:item.id,selected:false})
+        })
+      })
+      commit('setTagsList',temp)
     }
 
   },

@@ -7,12 +7,7 @@
             </button>
             
         </div>
-        <!-- <div class="col-md-2">
-            <button class="btn btn-block rounded btn-new" @click="showAddNewCardModal">
-                <i class="fas fa-camera"></i><span> Open Camera</span>
-            </button>
-            
-        </div> -->
+        
         
     </div>
 
