@@ -43,7 +43,8 @@ export default new Vuex.Store({
     // selected items
     selectedCard:[],
     selectedCardTags:[],
-    selectedCategory:[]
+    selectedCategory:[],
+    isItemSelected:false
     
 
 
@@ -140,18 +141,43 @@ export default new Vuex.Store({
       state.filteredBusinessCards = new Set(selectedItems);
     },
     setSelectedCardList: (state,payload) => {
-      let temp = [];
+      let temp = state.filteredBusinessCards;
+
       state.businessCards.forEach(item => {
         if(item.cid == payload){
           if(item.selected == false){
             item.selected = true;
+            temp.push(item); 
           }else{
             item.selected = false;
+            temp.pop()
           }
-        }   
-        temp.push(item);     
+        }     
       })
-      state.cardCategoryList = temp;
+      state.filteredBusinessCards = temp;
+    },
+    setSelectedCardListManually: (state,payload) => {
+      console.log(payload)
+      // let temp = [];
+      state.isItemSelected = false
+      payload.forEach(item => {
+        if(item.selected == true){
+          state.isItemSelected = true
+        }
+        console.log("isItemSelected",state.isItemSelected)
+      })
+      console.log("isItemSelected",state.isItemSelected)
+      state.filteredBusinessCards = payload;
+    },
+    getSelectedItems:state => {
+      let temp = [];
+      state.filteredBusinessCards.forEach(item => {
+        if(item.selected == true){
+          temp.push(item)
+        }
+      })
+
+      return temp;
     }
   },
   actions: {

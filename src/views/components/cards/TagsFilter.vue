@@ -20,44 +20,42 @@
         ><i class="fas fa-times close-btn"></i> {{ tag.gid }}</span
       >
     </li>
-    <li
-      class="tag-item list-inline-item"
-      
-    >
-      <span
-        class="item-name create-group"
-        
-        @click="event => hangleCategoryCreation(event, tag)"
-       
-        ><i class="fas fa-plus close-btn text-success"></i> Add New Tag</span
-      >
-     
-    </li>
-    <li
-      class="tag-item list-inline-item"
-      
-    >
-      <span
-        class="item-name create-group"
-        
-        @click="event => hangleCategoryCreation(event, tag)"
-       
-        ><i class="fas fa-plus close-btn text-success"></i> Create Group</span
-      >
-     
-    </li>
+
+    <li v-if="isItemSelected" class="tag-item list-inline-item">
+      <input class="form-control custom-tag-cat-input" v-model="catName"/>
+
+    </li>    
+    <a href="#" v-if="isItemSelected">
+      <li class="tag-item list-inline-item">
+        <span
+          class="item-name create-group"
+          @click="event => hangleBulkCategoryCreation(event, tag)"
+          ><i class="fas fa-plus"></i> Create Group</span
+        >
+      </li>
+    </a>
+    <a href="#" v-if="isItemSelected">
+      <li class="tag-item list-inline-item">
+        <span
+          class="item-name create-group"
+          @click="event => hangleBulkTagCreation(event, tag)"
+          ><i class="fas fa-plus"></i> Add Tag</span
+        >
+      </li>
+    </a>  
   </ul>
 </template>
 
 <script>
 import store from "../../../store/index.js";
-
+import firebase from "firebase";
 export default {
   name: "TagsFilter",
   data() {
     return {
       tagsFetched: false,
-      tagsSelected: []
+      tagsSelected: [],
+      catName:''
     };
   },
   created() {
@@ -69,12 +67,62 @@ export default {
   computed: {
     getAllTags() {
       return store.state.allTags;
-    }
+    },
+    getCardCategoryList(){
+      return store.state.cardCategoryList;
+    },
+    isItemSelected(){
+      return store.state.isItemSelected;
+    },
+    getAllCards() {
+      return store.state.filteredBusinessCards;
+    },
+
   },
   methods: {
     hangleTagsSelection(event, tag) {
-      store.commit('setSelectedTags',tag.gid)
+      store.commit("setSelectedTags", tag.gid);
       this.tagsSelected.push(tag);
+    },
+    hangleBulkCategoryCreation(){
+      if(this.catName != ''){
+        let tempGpMembers = []
+        this.getAllCards.forEach(item=> {
+          if(item.selected){
+            tempGpMembers.push(item.cid)            
+          }
+        })
+        firebase.firestore().collection('Groups').add({
+           items:tempGpMembers,
+          name:this.catName,
+          addedBy:firebase.auth().currentUser.uid,
+          addedOn:(new Date()),
+          status:'active'
+        })
+      } else{
+        alert("name is missing")
+      } 
+    },
+    hangleBulkTagCreation(){
+      if(this.catName != ''){
+        var batch = firebase.firestore().batch();
+        var db = firebase.firestore();
+        this.getAllCards.forEach(item=> {
+          if(item.selected){
+            let tempRef = db.collection('Cards').doc(item.cid);
+            let tempTags = item.tags;
+            tempTags.push(this.catName)
+            batch.update(tempRef,{
+              tags:tempTags
+            })
+          }
+        })
+        batch.commit().then(res => {
+          console.log(res)
+        })
+      }else{
+        alert("name is missing")
+      }
     }
   }
 };
@@ -116,7 +164,7 @@ export default {
   padding: 5px;
 }
 
-.create-group{
+.create-group {
   padding: 5px 10px 5px 5px;
   background-color: #f52552;
   border-radius: 10px;
@@ -127,7 +175,10 @@ export default {
 .create-group .close-btn {
   border-width: 1px;
   background-color: #ffffff;
-  color:#f52552;
+  color: #f52552;
   border-radius: 10px;
+}
+.custom-tag-cat-input{
+  font-size:10px;
 }
 </style>

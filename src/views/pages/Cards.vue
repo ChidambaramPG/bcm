@@ -4,6 +4,7 @@
     <div class="container">
       <!-- <cards-header /> -->
       <business-cards class="brochures-table" v-if="cardsSection == 'table'" />
+      <!-- <cards-list1 class="brochures-table" v-if="cardsSection == 'table'" /> -->
       <add-cards v-if="cardsSection == 'add'"/>
       <edit-card v-if="cardsSection == 'edit'" />
       <floating-add-button/>
@@ -14,6 +15,8 @@
 <script>
 import TopBar from "../shared/TopBar.vue";
 import BusinessCards from "../components/cards/BusinessCards.vue";
+// import CardsList1 from "../components/cards/CardsList1.vue";
+
 // import CardsHeader from "../components/cards/CardsHeader.vue";
 import AddCards from '../components/cards/AddCards.vue';
 import EditCard from '../components/cards/EditCard.vue';
@@ -28,7 +31,8 @@ export default {
     BusinessCards,
     AddCards,
     EditCard,
-    FloatingAddButton
+    FloatingAddButton,
+    // CardsList1
   },
   computed:{
     cardsSection(){

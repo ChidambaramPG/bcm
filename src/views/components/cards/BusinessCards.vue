@@ -9,8 +9,8 @@
           </div>
 
           <!-- <div class="row">
-            <div class="col-md-4" v-for="(card, index) in getAllCards" :key="index">
-              <img class="card-img img-responsive" :src="card.image" />
+            <div class="col-md-3" v-for="(card, index) in getAllCards" :key="index">
+              <img class="card-img" :src="card.image" />
             </div>
           </div> -->
           
@@ -22,6 +22,7 @@
                       type="checkbox"
                       class="custom-control-input"
                       id="select-all-cards"
+                      @click="(event) => handleAllItemsSelection(event)"
                     />
                     <label
                       class="custom-control-label"
@@ -40,7 +41,22 @@
             </thead>
             <tbody>
               <tr v-for="(card, index) in getAllCards" :key="index">
-                <td>
+                <td v-if="card.selected == true">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      :id="card.cid"
+                      @click="(event)=>handleSelectedCard(event,card.cid)"
+                      checked
+                    />
+                    <label
+                      class="custom-control-label"
+                      :for="card.cid"
+                    ></label>
+                  </div>
+                </td>
+                <td v-else>
                   <div class="custom-control custom-checkbox">
                     <input
                       type="checkbox"
@@ -58,23 +74,23 @@
                   <img class="card-img img-responsive" :src="card.image" />
                 </td>
                 <td>
-                  <span v-if="card.cFirstname != null">{{ card.cFirstname }}</span>
+                  <span v-if="card.cFirstname != ''">{{ card.cFirstname }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.cType != null">{{ card.cType }}</span>
+                  <span v-if="card.cType != ''">{{ card.cType }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.cOrganization != null">{{ card.cOrganization }}</span>
+                  <span v-if="card.cOrganization != ''">{{ card.cOrganization }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.cTier != null">{{ card.cTier }}</span>
+                  <span v-if="card.cTier != ''">{{ card.cTier }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
-                  <span v-if="card.cPhone != null">{{ card.cPhone }}</span>
+                  <span v-if="card.cPhone != ''">{{ card.cPhone }}</span>
                   <span v-else>Not Added</span>
                 </td>
                 <td>
@@ -141,7 +157,37 @@ export default {
     },
     handleSelectedCard(event,cid){
       console.log(event);
-      store.commit('setSelectedCardList',cid)
+      
+      let temp = [];
+      this.getAllCards.forEach(item => {  
+        if(item.cid == cid){
+          if(event.target.checked){
+            temp.push({...item,selected:true});
+          }else{
+            temp.push({...item,selected:false});
+          }
+        }else{
+          temp.push(item)
+        }
+        
+        
+      })
+      store.commit('setSelectedCardListManually',temp)
+    },
+    handleAllItemsSelection(event){
+      console.log(event.target.checked)
+
+      let temp = [];
+      this.getAllCards.forEach(item => {
+        // item.selected = true;
+        if(event.target.checked){
+          temp.push({...item,selected:true});
+        }else{
+          temp.push({...item,selected:false});
+        }
+        
+      })
+      store.commit('setSelectedCardListManually',temp)
     }
 
   },
@@ -205,7 +251,7 @@ li.page-item.active > a {
   border-color: transparent;
 }
 .card-img {
-  width: 200px;
+  width: 50px;
 }
 .tag-pill{
   margin-right:10px;

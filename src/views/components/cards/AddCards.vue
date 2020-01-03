@@ -225,31 +225,31 @@ export default {
       image: "",
       imageError: "",
       imagePresent: true,
-      name: null,
-      phone: null,
-      email: null,
-      address: null,
-      forecast: null,
-      requirements: null,
-      comments: null,
+      name: '',
+      phone: '',
+      email: '',
+      address: '',
+      forecast: '',
+      requirements: '',
+      comments: '',
       
       isLoading: false,
       tags: [],
-      salutation: null,
-      cFirstname: null,
-      cLastname: null,
-      cType: null,
-      cOrganization: null,
-      cTier: null,
-      cDesignation: null,
-      cEmail: null,
-      cPhone: null,
-      cAltPhone: null,
-      cRole: null,
-      cAddress: null,
-      cCity: null,
-      cPincode: null,
-      cCountry: null
+      salutation: '',
+      cFirstname: '',
+      cLastname: '',
+      cType: '',
+      cOrganization: '',
+      cTier: '',
+      cDesignation: '',
+      cEmail: '',
+      cPhone: '',
+      cAltPhone: '',
+      cRole: '',
+      cAddress: '',
+      cCity: '',
+      cPincode: '',
+      cCountry: ''
     };
   },
   methods: {
@@ -272,7 +272,7 @@ export default {
     },
     setImageData(data) {
       if (data != "") {
-        this.resizedataURL(data, 200, 200);
+        this.resizedataURL(data, 400, 400);
         this.imagePresent = true;
       }
     },
