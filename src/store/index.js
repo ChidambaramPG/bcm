@@ -46,7 +46,8 @@ export default new Vuex.Store({
     selectedCategory:[],
     isItemSelected:false,
     selectedcardGroupItems:[],
-    selectedGroupId:""
+    selectedGroupId:"",
+    tagFilterItems:[]
     
 
 
@@ -116,6 +117,25 @@ export default new Vuex.Store({
       console.log("tags:",state.allTags)
     },
     setSelectedTags: (state,payload) => {
+
+      if(state.tagFilterItems.length < 1){
+        // console.log('adding first tag')
+        state.tagFilterItems.push(payload)
+      }else{
+        // console.log('tags are present ')
+        // let tempSelTags = []
+        let tagPresent = state.tagFilterItems.includes(payload)
+
+        if(!tagPresent) {
+          state.tagFilterItems.push(payload)
+        }else{
+          state.tagFilterItems = state.tagFilterItems.filter((val) => {
+            return val != payload
+          })
+        }
+        // console.log(state.tagFilterItems)
+      }
+      
       state.allTags.forEach(item => {
         if(item.gid == payload){
           if(item.selected == false){
@@ -125,20 +145,24 @@ export default new Vuex.Store({
           }
         }
       })
+
       let selectedItems = [];
       state.businessCards.forEach((item) => {
-        // console.log(tags)
-        let tagPresent = true;
-        state.allTags.forEach(({gid,selected}) => {
-          if(selected == true){
-            if(!item.tags.includes(gid)){
-              tagPresent = false;
+        
+        let tagPresent = false;
+        state.tagFilterItems.forEach( gid => {
+          // console.log(item.tags,gid)
+            if(item.tags.includes(gid)){
+              // console.log("tag present ==> ",item.tags.includes(gid))
+              tagPresent = true;
             }
-          }          
+            // console.log(tag)
         })
         if(tagPresent){
+          // console.log("adding item")
           selectedItems.push(item)
         }
+        
       })
       // console.log(new Set(selectedItems));
       state.filteredBusinessCards = new Set(selectedItems);
