@@ -9,6 +9,7 @@ import Users from "../views/pages/Users.vue";
 import Categories from "../views/pages/Categories.vue";
 import Profile from '../views/pages/Profile.vue';
 import Settings from '../views/pages/Settings.vue';
+import Groups from "../views/pages/Groups.vue";
 import firebase from "firebase";
 
 Vue.use(VueRouter);
@@ -16,8 +17,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "dashboard",
-    component: Dashboard,
+    name: "cards",
+    component: Cards,
     meta: {
       requiresAuth: true
     }
@@ -82,6 +83,14 @@ const routes = [
     path:"/settings",
     name:'settings',
     component:Settings,
+    meta:{
+      requiresAuth:true
+    }
+  },
+  {
+    path:"/lists",
+    name:'lists',
+    component:Groups,
     meta:{
       requiresAuth:true
     }

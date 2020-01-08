@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+  <nav class="navbar navbar-expand-lg navbar-light border-bottom shadow">
     <a class="navbar-brand" href="#"><h5>BCM</h5></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -21,6 +21,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
+             style="color:white;"
           >
             <i class="fas fa-user"></i> Mahesh
           </a>
@@ -63,13 +64,29 @@ export default {
 <style scoped>
 .navbar {
   width: 100% !important;
-  height: 80px;
-  background-color: white;
+  height: 50px;
+  z-index:9999;
+  background-color:#0094ff;
+  
+  /* background-color: grey; */
   /* background-color: #f95473 !important; */
   /* color:white; */
+  /* background: rgb(67,70,73); */
+  /* background: linear-gradient(90deg, rgba(67,70,73,1) 0%, rgba(41,38,39,1) 100%);  */
 }
 
 .svg-inline--fa {
-  color: #f95473;
+  color: white;
+  margin-right:5px;
+}
+
+.navbar-brand{
+  /* color:#de3c4b */
+  color:white;
+}
+
+.nav-item.dropdown a{
+  color:white !important; 
+  font-size:12px;
 }
 </style>

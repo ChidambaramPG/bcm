@@ -19,10 +19,10 @@ export default new Vuex.Store({
     allTags:[],
     cardCategoryList:[],
 
-    sidebarVisible:true,
+    sidebarVisible:false,
 
     // page views
-    activePage:'dashboard',
+    activePage:'cards',
     categorySubTag:'all',
     cardsSecton:'table',
     usersSection:'table',
@@ -44,7 +44,9 @@ export default new Vuex.Store({
     selectedCard:[],
     selectedCardTags:[],
     selectedCategory:[],
-    isItemSelected:false
+    isItemSelected:false,
+    selectedcardGroupItems:[],
+    selectedGroupId:""
     
 
 
@@ -111,6 +113,7 @@ export default new Vuex.Store({
     setTagsList: (state,payload) => {
       state.allTags = [];
       state.allTags = payload;
+      console.log("tags:",state.allTags)
     },
     setSelectedTags: (state,payload) => {
       state.allTags.forEach(item => {
@@ -157,17 +160,25 @@ export default new Vuex.Store({
       state.filteredBusinessCards = temp;
     },
     setSelectedCardListManually: (state,payload) => {
-      console.log(payload)
-      // let temp = [];
+      // console.log("inside setSelectedCardListManually")
+
+      let temp = [];
       state.isItemSelected = false
-      payload.forEach(item => {
-        if(item.selected == true){
-          state.isItemSelected = true
+      state.filteredBusinessCards.forEach(item => {
+        // console.log(item.selected)
+        if(item.cid == payload.cid){
+          if(item.selected == true){
+            item.selected = false;
+          }else{
+            state.isItemSelected = true;
+            item.selected = true;
+          }
         }
-        console.log("isItemSelected",state.isItemSelected)
+        temp.push(item)
       })
-      console.log("isItemSelected",state.isItemSelected)
-      state.filteredBusinessCards = payload;
+      // console.log("isItemSelected",state.isItemSelected)
+      state.filteredBusinessCards = [];
+      state.filteredBusinessCards = temp;
     },
     getSelectedItems:state => {
       let temp = [];
@@ -178,12 +189,62 @@ export default new Vuex.Store({
       })
 
       return temp;
+    },
+    setSelectedGroup: (state,payload) => {
+      // console.log(payload)
+      let temp = []
+      state.categoriesList.forEach( item => {
+        // console.log(item)
+        if(item.gid == payload.gid){
+          temp = item.items;
+        }
+      })
+
+      // console.log(temp)
+      let temp2 = []
+      temp.forEach(cid => {
+        console.log(cid)
+        state.businessCards.forEach(card => {
+          console.log(card.cid)
+          if(cid==card.cid){
+            temp2.push({...card,selected:true})
+          }
+        })
+      })
+      console.log(temp2)
+      state.selectedcardGroupItems = temp2;
+      state.selectedGroupId = payload.gid;
+
+    },
+    updateCategoryListItems: (state,payload) => {
+      let itemFound = false;
+      if(payload.checked){
+        state.selectedcardGroupItems.forEach(item => {
+          if(item.cid == payload.cid){
+            itemFound = true
+          }
+        })
+        if(!itemFound){
+          state.selectedcardGroupItems.push(payload)
+        }
+      }else{
+        let temp = []
+        state.selectedcardGroupItems.forEach(item => {
+          if(item.cid == payload.cid){
+            itemFound = true
+          }else{
+            temp.push(item)
+          }
+        })
+        state.selectedcardGroupItems = temp;
+      }
+      
     }
   },
   actions: {
     fetchAllBusinessCards:({state}) => {
       
-      firebase.firestore().collection("Cards").onSnapshot(resp => {
+      firebase.firestore().collection("Cards").where("status","==","active").onSnapshot(resp => {
         let cards = [];
         resp.forEach(item => {
           cards.push({...item.data(),cid:item.id,selected:false})
@@ -208,21 +269,43 @@ export default new Vuex.Store({
       .get().then( resp => {
         
         resp.forEach(item => {
-          temp.push({...item.data(),gid:item.id})
+          temp.push({...item.data(),gid:item.id,selected:false})
         })
       })
       commit('setCategoriesList',temp)
     },
     fetchAllTags: ({commit}) => {
-      let temp = [];
+      
       firebase.firestore().collection('Tags')
       .onSnapshot(resp => {
-        
+        // temp = [];
+        let temp = [];
+        console.log("fetched again")
         resp.forEach(item => {
           temp.push({...item.data(),gid:item.id,selected:false})
         })
+        console.log("fetched tags:",temp)
+        commit('setTagsList',temp)
       })
-      commit('setTagsList',temp)
+
+      
+    },
+    removeTagfromItem: ({state},payload) => {
+
+      console.log("payload:",payload)
+      let temp = [];
+      state.selectedCardTags.forEach(item => {
+        console.log(item)
+        if(item != payload){
+          temp.push(item);
+        }
+      })
+      state.selectedCardTags = temp;
+      console.log(state.selectedCard)
+      firebase.firestore().collection('Cards').doc(state.selectedCard.cid).update({
+        tags:temp
+      })
+      
     }
 
   },

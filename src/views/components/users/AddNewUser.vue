@@ -1,17 +1,24 @@
 <template>
   <section class="add-user-section">
-    <div class="row">
-      <div class="col-md-6">
-        <h5>Add New User</h5>
+    <div class="row shadow p-2">
+      <div class="col-md-1" style="text-align:left;color:#161e7a;">
+        <a href="#" @click.prevent="handleBackToUser" ><i class="fas fa-arrow-left fa-sm"></i></a>
+      </div>
+      <div class="col-md-5">
+        <h5 style="font-family:lato;">Add New User</h5>
+      </div>
+      <div class="col-md-6" style="text-align:right;color:#161e7a;">
+        <a href="#" @click.prevent="handleAddUser" ><i class="fas fa-save fa-lg"></i></a>
       </div>
     </div>
-    <div class="row add-new-user">
+    <div class="row shadow">
       <div class="col-md-4 media-section border-right">
-        <div class="row">
+        <div class="row" style="text-align:center;">
           <img
             id="cardImage"
-            class="card-img img-responsive"
+            class="card-img p-4"
             src="../../../assets/img/user-img.jpg"
+            style=""
           />
         </div>
 
@@ -21,6 +28,7 @@
               type="file"
               accept="image/*"
               id="cardImageSelect"
+              style="font-size:10px;"
               @change="() => handleFileSelected()"
             />
           </div>
@@ -29,37 +37,40 @@
       <div class="col-md-8">
         <form action="">
           <div class="row form-group">
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Name</label>
               <input
                 type="text"
                 class="form-control"
                 placeholder="Riken Keiki Safety"
                 v-model="name"
+                style="font-size:10px;"
                 required
               />
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2"
+            style="font-size:10px;">
               <label for="">Code</label>
               <input
                 type="text"
                 class="form-control"
                 placeholder="91"
                 v-model="code"
+                style="font-size:10px;"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Phone</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="555-444-3434"
                 v-model="phone"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Email</label>
-              <input
+              <input style="font-size:10px;"
                 type="email"
                 class="form-control"
                 placeholder="ikenkeiki@gmail.com"
@@ -69,18 +80,18 @@
             </div>
           </div>
           <div class="row form-group">
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="exampleFormControlSelect1">User type</label>
-              <select class="form-control" id="userType" v-model="type">
+              <select class="form-control" id="userType" v-model="type" style="font-size:10px;">
                 <option value="Management">Management</option>
                 <option value="Backend Data Entry">Backend Data Entry</option>
                 <option value="Data Collection">Data Collection</option>
                 <option value="Sales">Sales</option>
               </select>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="font-size:10px;">
               <label for="">Address</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="12B Bake Street"
@@ -89,27 +100,27 @@
             </div>
           </div>
           <div class="row form-group">
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Designation</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Manager,Sales, etc.."
                 v-model="designation"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Company</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="HP,Dell,etc.."
                 v-model="company"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Department</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="IT,Sales,etc.."
@@ -118,27 +129,27 @@
             </div>
           </div>
           <div class="row form-group">
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">District</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Thrissur"
                 v-model="district"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">State</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="kerala"
                 v-model="state"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Country</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="India"
@@ -149,8 +160,8 @@
 
           <div class="row form-group">
             <div class="col-md-6 custom-control custom-checkbox">
-              <div class="custom-control custom-checkbox">
-                <input
+              <div class="custom-control custom-checkbox" style="font-size:10px;">
+                <input style="font-size:10px;"
                   type="checkbox"
                   class="custom-control-input"
                   id="numPass"
@@ -164,6 +175,7 @@
             </div>
             <div class="col-md-6">
               <input
+                style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Custom Password"
@@ -171,6 +183,7 @@
                 v-if="useCustomPass"
               />
               <input
+                style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Custom Password"
@@ -179,7 +192,7 @@
               />
             </div>
           </div>
-          <div class="row button-sec">
+          <!-- <div class="row button-sec">
             <div class="col-md-3">
               <button
                 class="btn btn-block rounded btn-new"
@@ -198,7 +211,7 @@
                 <span>Add User</span>
               </button>
             </div>
-          </div>
+          </div> -->
         </form>
         <div class="alert alert-danger" v-if="errorMessages.length > 0">
           <p v-for="(err, index) in errorMessages" :key="index">{{ err }}</p>

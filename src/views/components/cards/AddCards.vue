@@ -1,12 +1,18 @@
 <template>
   <section class="">
-    <div class="row">
-      <div class="col-md-6">
-        <h5>Add New Card</h5>
+    <div class="row shadow p-2">
+      <div class="col-md-1" style="text-align:left;color:#161e7a;">
+        <a href="#" @click.prevent="handleBackToCards" ><i class="fas fa-arrow-left fa-sm"></i></a>
+      </div>
+      <div class="col-md-5" style="text-align:left">
+        <h5 style="font-weight:600;font-size:12px;color:#161e7a;padding-top:5px;">{{'Add Card'.toUpperCase()}}</h5>
+      </div>
+      <div class="col-md-6" style="text-align:right;color:#161e7a;">
+        <a href="#" @click.prevent="handleCardSave" ><i class="fas fa-save fa-lg"></i></a>
       </div>
     </div>
-    <div class="row add-new-card">
-      <div class="col-md-4 media-secton">
+    <div class="row shadow p-4">
+      <div class="col-md-3 media-secton">
         <div class="row">
           <img
             id="cardImage"
@@ -21,6 +27,7 @@
               type="file"
               accept="image/*"
               id="cardImageSelect"
+              style="font-size:10px;"
               @change="() => handleFileSelected()"
             />
           </div>
@@ -30,12 +37,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <form action="">
           <div class="row">
             <div class="col-md-3">
-              <label for="exampleFormControlSelect1">Salutaton</label>
-              <select class="form-control" id="userType" v-model="salutation">
+              <label for="exampleFormControlSelect1" style="font-size:10px;">Salutaton</label>
+              <select class="form-control" id="userType" v-model="salutation" style="font-size:10px;">
                 <option value="Mr">Mr</option>
                 <option value="Mrs">Mrs</option>
                 <option value="Ms">Ms</option>
@@ -44,26 +51,27 @@
               </select>
             </div>
             <div class="col-md-3">
-              <label for="">First Name</label>
+              <label for="" style="font-size:10px;">First Name</label>
               <input
-                type="text"
+                type="text" 
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="John"
                 v-model="cFirstname"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Last Name</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Doe"
                 v-model="cLastname"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="exampleFormControlSelect1">Type</label>
-              <select class="form-control" id="userType" v-model="cType">
+              <select style="font-size:10px;" class="form-control" id="userType" v-model="cType">
                 <option value="End Customer">End Customer</option>
                 <option value="Reseller">Reseller</option>
                 <option value="OEM">OEM</option>
@@ -75,35 +83,35 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Organization</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Hp, Dell, etc.."
                 v-model="cOrganization"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="exampleFormControlSelect1">Tier</label>
-              <select class="form-control" id="userType" v-model="cTier">
+              <select style="font-size:10px;" class="form-control" id="userType" v-model="cTier">
                 <option value="Commercial">Commercial</option>
                 <option value="Consumer">Consumer</option>
                 <option value="Component">Component</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Designation</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Manager, Head, Client, etc.."
                 v-model="cDesignation"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Email</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Doe"
@@ -113,27 +121,27 @@
           </div>
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Phone</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="+919746747214"
                 v-model="cPhone"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Alternate Number</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="+919746747214"
                 v-model="cAltPhone"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Role</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
@@ -142,36 +150,36 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Address</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cAddress"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">City</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cCity"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Pincode</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cPincode"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Country</label>
-              <input
+              <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
@@ -179,32 +187,11 @@
               />
             </div>
           </div>
-
-          <add-tags/> 
-
-          <div class="row">
-            <div class="col-md-4">
-              <button
-                class="btn btn-block rounded btn-new"
-                @click="handleBackToCards"
-              >
-                <span>Back</span>
-              </button>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-              <button
-                class="btn btn-block rounded btn-new"
-                @click.prevent="handleCardSave"
-              >
-                <div class="spinner-border" role="status" v-if="isLoading">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <span>Save Card</span>
-              </button>
-            </div>
-          </div>
         </form>
+      </div>
+
+      <div class="col-md-2">
+        <add-new-tags/> 
       </div>
     </div>
   </section>
@@ -213,11 +200,11 @@
 <script>
 import store from "../../../store/index.js";
 import firebase from "firebase";
-import AddTags from './AddTags.vue';
+import AddNewTags from './AddNewTags.vue';
 export default {
   name: "AddCards",
   components:{
-    AddTags
+    AddNewTags
   },
   data() {
     return {
@@ -254,8 +241,11 @@ export default {
   },
   methods: {
     handleAddTag() {
-      this.tags.push(document.getElementById("tag").value);
-      document.getElementById("tag").value = "";
+      if(document.getElementById("tag").value != ''){
+        this.tags.push(document.getElementById("tag").value);
+        document.getElementById("tag").value = "";
+      }
+      
     },
     handleBackToCards() {
       store.commit("setCardsSection", "table");
@@ -296,8 +286,6 @@ export default {
       img.src = datas;
     },
     handleCardSave() {
-      // console.log("adding card");
-      // let user = firebase.auth().currentUser;
 
       if (this.image == "") {
         this.imagePresent = false;
@@ -325,6 +313,7 @@ export default {
           cCity: this.cCity,
           cPincode: this.cPincode,
           cCountry: this.cCountry,
+          status:"active"
         };
         // console.log(cardObj);
         firebase
@@ -346,7 +335,7 @@ export default {
   computed:{
     getAddedTags(){
       return store.state.selectedCardTags;
-    }
+    },
   }
 };
 </script>

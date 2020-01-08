@@ -1,7 +1,7 @@
 <template>
   <li class="nav-item">
     <a
-      class="nav-link"
+      class="nav-link active-section"
       @click.prevent="() => setContentLayout(name)"
       v-if="activePage == name"
       href="#"
@@ -42,14 +42,35 @@ export default {
 };
 </script>
 <style scoped>
-.active-section {
-  background-color: #f95473;
-  color: white;
+a{
+  font-size:12px;
+}
+
+.nav-item a{
+    z-index:9999;
+    /* background-color:white; */
+    color:white !important;
+    padding-left: 10px;
+}
+.active-section.nav-link{
+  /* background-color: #f95473; */
+  color: white !important;
+  font-weight:800;
   text-align: right;
 }
-.nav-item{
+
+@media only screen and (max-width: 768px) {
+  .nav-item a{
     z-index:9999;
-    background-color:white;
+    color:grey !important;
     padding-left: 10px;
+    border-bottom: 1px solid grey;
+  }
+  .active-section.nav-link{    
+    color: grey !important;
+    font-weight:800;
+    text-align: right;    
+    border-bottom: 1px solid grey;
+  }
 }
 </style>

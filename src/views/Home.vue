@@ -9,9 +9,10 @@
         <brochure v-else-if="activePage === 'brochures'" />
         <cards v-else-if="activePage === 'cards'" />
         <users v-else-if="activePage === 'users'" />
-        <categories v-else-if="activePage === 'categories'" />
+        <categories v-else-if="activePage === 'category'" />
         <profile v-else-if="activePage == 'profile'"/>
         <settings v-else-if="activePage == 'settings'"/>
+        <groups v-else-if="activePage == 'lists'"/>
       </div>
     </div>
     <div class="row" v-else>
@@ -20,9 +21,10 @@
         <brochure v-else-if="activePage === 'brochures'" />
         <cards v-else-if="activePage === 'cards'" />
         <users v-else-if="activePage === 'users'" />
-        <categories v-else-if="activePage === 'categories'" />
+        <categories v-else-if="activePage === 'category'" />
         <profile v-else-if="activePage == 'profile'"/>
         <settings v-else-if="activePage == 'settings'"/>
+        <groups v-else-if="activePage == 'lists'"/>
       </div>
     </div>
     <div class="row">
@@ -40,6 +42,7 @@ import Users from "./pages/Users.vue";
 import Categories from "./pages/Categories.vue";
 import Profile from './pages/Profile.vue';
 import Settings from './pages/Settings.vue';
+import Groups from "./pages/Groups.vue";
 
 import AllModals from "./shared/AllModals.vue";
 import store from "../store/index.js";
@@ -56,7 +59,8 @@ export default {
     Users,
     Categories,
     Profile,
-    Settings
+    Settings,
+    Groups
   },
   computed: {
     showSidebar() {
@@ -79,6 +83,9 @@ export default {
 </script>
 
 <style scoped>
+.home{
+  z-index:9998;
+}
 .page-content {
   padding: 0px;
 }

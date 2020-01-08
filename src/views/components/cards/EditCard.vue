@@ -1,12 +1,18 @@
 <template>
   <section class="">
-    <div class="row">
-      <div class="col-md-6">
-        <h5>Edit Card</h5>
+    <div class="row shadow p-2"> 
+      <div class="col-md-1" style="text-align:left;color:#161e7a;">
+        <a href="#" @click.prevent="handleBackToCards" ><i class="fas fa-arrow-left fa-sm"></i></a>
+      </div>
+      <div class="col-md-5" style="text-align:left">
+        <h5 style="font-weight:600;font-size:12px;color:#161e7a;padding-top:5px;">{{'Edit Card'.toUpperCase()}}</h5>
+      </div>
+      <div class="col-md-6" style="text-align:right;color:#161e7a;">
+        <a href="#" @click.prevent="handleCardSave" ><i class="fas fa-save fa-lg"></i></a>
       </div>
     </div>
-    <div class="row add-new-card">
-      <div class="col-md-4 media-secton">
+    <div class="row shadow p-5">
+      <div class="col-md-3 media-secton">
         <div class="row">
           <img
             id="cardImage"
@@ -19,6 +25,7 @@
           <div class="col-md-6">
             <input
               type="file"
+              style="font-size:10px;"
               accept="image/*"
               id="cardImageSelect"
               @change="() => handleFileSelected()"
@@ -30,12 +37,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-8">
-        <form action="">
+      <div class="col-md-7">
+        <form action="" style="font-size:10px;">
           <div class="row">
             <div class="col-md-3">
               <label for="exampleFormControlSelect1">Salutaton</label>
-              <select class="form-control" id="salutation" :value="getSelectedCard.salutation">
+              <select style="font-size:10px;" class="form-control" id="salutation" :value="getSelectedCard.salutation">
                 <option value="Mr">Mr</option>
                 <option value="Mrs">Mrs</option>
                 <option value="Ms">Ms</option>
@@ -43,7 +50,7 @@
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">First Name</label>
               <input
                 type="text"
@@ -51,9 +58,10 @@
                 placeholder="John"
                 :value="getSelectedCard.cFirstname"
                 id="cFirstname"
+                style="font-size:10px;"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Last Name</label>
               <input
                 type="text"
@@ -61,11 +69,12 @@
                 placeholder="Doe"
                 :value="getSelectedCard.cLastname"
                 id="cLastname"
+                style="font-size:10px;"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;" >
               <label for="exampleFormControlSelect1">Type</label>
-              <select class="form-control" id="cType" :value="getSelectedCard.cType">
+              <select class="form-control" id="cType" :value="getSelectedCard.cType" style="font-size:10px;">
                 <option value="End Customer">End Customer</option>
                 <option value="Reseller">Reseller</option>
                 <option value="OEM">OEM</option>
@@ -77,7 +86,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Organization</label>
               <input
                 type="text"
@@ -85,11 +94,12 @@
                 placeholder="Hp, Dell, etc.."
                 :value="getSelectedCard.cOrganization"
                 id="cOrganization"
+                style="font-size:10px;"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="exampleFormControlSelect1">Tier</label>
-              <select class="form-control" id="cTier" :value="getSelectedCard.cTier">
+              <select class="form-control" id="cTier" style="font-size:10px;" :value="getSelectedCard.cTier">
                 <option value="Sales">Sales</option>
                 <option value="Procurement">Procurement</option>
                 <option value="IT Department">IT Department</option>
@@ -99,17 +109,18 @@
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Designation</label>
               <input
                 type="text"
                 class="form-control"
+                style="font-size:10px;"
                 placeholder="Manager, Head, Client, etc.."
                 :value="getSelectedCard.cDesignation"
                 id="cDesignation"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Email</label>
               <input
                 type="text"
@@ -117,35 +128,39 @@
                 placeholder="Doe"
                 :value="getSelectedCard.cEmail"
                 id="cEmail"
+                style="font-size:10px;"
               />
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Phone</label>
               <input
                 type="text"
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="+919746747214"
                 :value="getSelectedCard.cPhone"
                 id="cPhone"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Alternate Number</label>
               <input
                 type="text"
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="+919746747214"
                 :value="getSelectedCard.cAltPhone"
                 id="cAltPhone"
               />
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4" style="font-size:10px;">
               <label for="">Role</label>
               <input
                 type="text"
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cRole"
@@ -154,19 +169,21 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Address</label>
               <input
                 type="text"
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cAddress"
                 id="cAddress"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">City</label>
               <input
+                style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
@@ -174,9 +191,10 @@
                 id="cCity"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Pincode</label>
               <input
+              style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
@@ -184,10 +202,11 @@
                 id="cPincode"
               />
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="font-size:10px;">
               <label for="">Country</label>
               <input
                 type="text"
+                style="font-size:10px;"
                 class="form-control"
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cCountry"
@@ -196,31 +215,10 @@
             </div>
           </div>
 
-          <add-tags/>
-
-          <div class="row">
-            <div class="col-md-4">
-              <button
-                class="btn btn-block rounded btn-new"
-                @click="handleBackToCards"
-              >
-                <span>Back</span>
-              </button>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-              <button
-                class="btn btn-block rounded btn-new"
-                @click.prevent="handleCardSave"
-              >
-                <div class="spinner-border" role="status" v-if="isLoading">
-                  <span class="sr-only">Loading...</span>
-                </div>
-                <span>Save Card</span>
-              </button>
-            </div>
-          </div>
         </form>
+      </div>
+      <div class="col-md-2">
+        <add-tags/>
       </div>
     </div>
   </section>

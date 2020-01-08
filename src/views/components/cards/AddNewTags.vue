@@ -26,12 +26,12 @@
     <div class="row">
       <div class="col-md-12 ">
         <span
-          style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:#2f973b;"
+          style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:grey;"
           class="badge badge-info tag-pills"
-          v-for="(tag, index) in getAddedTags"
+          v-for="(tag, index) in getAllTags"
           :key="index"
-          >{{ tag }} <a href="#" @click="() => handleTagRemove(tag)" style="color:white;item-decorations:none">
-            <i class="fa fa-times" style="margin-left:5px;" /></a></span
+          @click="() => addTagToCard(tag.gid)"
+          >{{ tag.gid }}</span
         >
       </div>
     </div>
@@ -41,32 +41,24 @@
 <script>
 import store from "../../../store/index.js";
 export default {
-  name: "AddTags",
-  data(){
-    return{
-      selectedTags:[],
-    }
-  },
+  name: "AddNewTags",
   methods: {
     handleAddTag() {
-      
+
       let tag = document.getElementById("tag").value;
-      if(tag.length > 3){
-        store.commit("addTagsToCard", tag);
-        document.getElementById("tag").value = "";
-      }
-      
+      store.commit("addTagsToCard", tag);
+      document.getElementById("tag").value = "";
     },
-    handleTagRemove(tag){
-      
-      // console.l og(tag)
-      store.dispatch("removeTagfromItem",tag)
+    addTagToCard(){
 
     }
   },
   computed: {
     getAddedTags() {
       return store.state.selectedCardTags;
+    },
+    getAllTags(){
+      return store.state.allTags
     }
   }
 };

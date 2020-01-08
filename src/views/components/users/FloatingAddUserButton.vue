@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="float" v-if="getCardsSection == 'table'" @click.prevent="showAddNewCardSection">
+  <a href="#" class="float" v-if="getUsersSection == 'table'" @click.prevent="showAddNewUserSection">
     <i class="fa fa-plus my-float"></i>
   </a>
 </template>
@@ -7,18 +7,18 @@
 <script>
 import store from '../../../store/index.js';
 export default {
-    name:"FloatingAddButton",
+    name:"FloatingAddUserButton",
     methods:{
         showAddNewCardModal(){
             store.commit('toggleNewCardModal')
         },
-        showAddNewCardSection(){
-            store.commit('setCardsSection','add');
+        showAddNewUserSection(){
+            store.commit('setUsersSection','add');
         }
     },
     computed:{
-        getCardsSection(){
-            return store.state.cardsSecton;
+        getUsersSection(){
+            return store.state.usersSection;
         }
     }
 };

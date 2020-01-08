@@ -1,8 +1,8 @@
 <template>
-  <div class="card-box">
-    <div class="table-responsive">
-      <div class="row table-row">
-        <div class="col-md-12">
+  <div class="">
+    <div class="">
+      <div class="row"  style="overflow:none">
+        <!-- <div class="col-md-12">
           <h5 class="table-title">Latest additions</h5>
           <table class="table table-hover">
             <thead class="table-head">
@@ -38,10 +38,39 @@
               </tr>              
             </tbody>
           </table>
+        </div> -->
+        <div class="col-md-3 shadow p-3 m-2" v-for="(user,index) in getUsers" :key="index">
+          <div class="row">
+            <div class="col-md-4" style="text-align:center;margin-top:10px;">
+              <img class="rounded-circle" style="width:100px;" :src="user.image" />
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-8">
+                  <span style="text-align:left !important;font-size:10px;font-weight:700;">{{user.name.toUpperCase()}}</span>
+                  
+                </div>
+                <div class="col-md-4" style="text-align:right !important;font-size:10px;color:#2f973b">
+                  <span >Active</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <span style="text-align:right !important;font-size:10px;">{{user.address}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <span style="text-align:right !important;font-size:10px;">{{user.phone}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
         </div>
       </div>
     </div>
-    <div class="row pagination-row">
+    <!-- <div class="row pagination-row">
       <nav aria-label="Page navigation page-nav">
         <ul class="pagination justify-content-center">
           <li class="page-item">
@@ -61,7 +90,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

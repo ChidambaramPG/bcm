@@ -1,29 +1,18 @@
 <template>
-    <div class="row">
-        <div class="col-lg-4 col-md-6 overview-card">
-            <div class="card">
+    <div class="row" >
+        <div class="col-lg-3 col-md-6 overview-card" style="margin-bottom:20px;">
+            <div class="card shadow">
                 <div class="card-header">
                     Business Cards
                 </div>
                 <div class="card-body">                    
-                    {{brochureCount}} <i class="fas fa-arrow-up fa-xs"></i>
+                    {{businessCardCount}} <i class="fas fa-arrow-up fa-xs"></i>
                 </div>
             </div>  
         </div>
 
-        <!-- <div class="col-lg-3 col-md-6 overview-card">
-            <div class="card">
-                <div class="card-header">
-                    Brochures
-                </div>
-                <div class="card-body">
-                    {{businessCardCount}} <i class="fas fa-arrow-up fa-xs"></i>
-                </div>
-            </div>  
-        </div> -->
-
-        <div class="col-lg-4 col-md-6 overview-card">
-            <div class="card">
+        <div class="col-lg-3 col-md-6 overview-card" style="margin-bottom:20px;">
+            <div class="card shadow">
                 <div class="card-header">
                     Categories
                 </div>
@@ -32,9 +21,20 @@
                 </div>
             </div>  
         </div>
+        <div class="col-lg-3 col-md-6 overview-card" style="margin-bottom:20px;">
+            <div class="card shadow">
+                <div class="card-header">
+                    Tags
+                </div>
+                <div class="card-body">
+                    {{tagsCount}} <i class="fas fa-arrow-down fa-xs"></i>
+                    
+                </div>
+            </div>  
+        </div>
 
-        <div class="col-lg-4 col-md-6 overview-card">
-            <div class="card">
+        <div class="col-lg-3 col-md-6 overview-card" style="margin-bottom:20px;">
+            <div class="card shadow">
                 <div class="card-header">
                     Users
                 </div>
@@ -56,14 +56,17 @@ export default {
         return store.state.brochureCount;
       },
       businessCardCount(){
-        return store.state.businessCardsCount;
+        return store.state.businessCards.length;
       },
       categoriesCount(){
-        return store.state.categoriesCount;
+        return store.state.categoriesList.length;
       },
       usersCount(){
-        return store.state.usersCount;
+        return store.state.allUsers.length;
       },
+      tagsCount(){
+        return store.state.allTags.length;
+      }
       
       
     },
@@ -85,7 +88,7 @@ export default {
 }
 
 .card-header{
-    background-color:#f95473;
+    background-color:#0094ff;
     color: white;
     font-size:14px;
 }

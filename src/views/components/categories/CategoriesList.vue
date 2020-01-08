@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <div class="row pagination-row">
+    <!-- <div class="row pagination-row">
       <nav aria-label="Page navigation page-nav">
         <ul class="pagination justify-content-center">
           <li class="page-item">
@@ -46,7 +46,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

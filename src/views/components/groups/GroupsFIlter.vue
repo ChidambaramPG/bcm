@@ -2,41 +2,41 @@
   <ul class="tags-list list-inline">
     <li
       class="tag-item list-inline-item "
-      v-for="(tag, index) in getAllTags"
+      v-for="(group, index) in getAllGroups"
       :key="index"
     >
       <span
         class="item-name pl-2"
         :id="index"
-        @click="event => hangleTagsSelection(event, tag)"
-        v-if="tag.selected == false"
-        style="color:#37323e;font-size:11px;"
-        >{{ tag.gid }}</span
+        @click="event => hangleGroupsSelection(event, group)"
+        v-if="group.selected == false"
+        style="color:#37323e;"
+        >{{ group.name }}</span
       >
       <span
         class="item-name item-selected pl-2"
 
         :id="index"
-        @click="event => hangleTagsSelection(event, tag)"
+        @click="event => hangleGroupsSelection(event, group)"
         v-else
-        > {{ tag.gid }}</span
+        > {{ group.gid }}</span
       >
     </li>
 
-    <li v-if="isItemSelected" class="tag-item list-inline-item">
+    <!-- <li v-if="isItemSelected" class="tag-item list-inline-item">
       <input class="form-control custom-tag-cat-input" 
       v-model="catName"
-      style="font-size:9px;border-radius:10px;margin-top:5px;"
+      style="font-size:8px;border-radius:10px;margin-top:5px;"
       />
 
-    </li>
+    </li> -->
     <a href="#" v-if="isItemSelected">
       <li class="tag-item list-inline-item">
         <span
           class="item-name create-group"
           style="margin-right:5px;background-color:#2f973b"
           @click="() => hangleBulkTagCreation()"
-          ><i class="fas fa-plus"></i> Add Tag</span
+          ><i class="fas fa-plus"></i> Remove Group</span
         >
       </li>
     </a>     
@@ -46,7 +46,7 @@
           class="item-name create-group"
           style="margin-right:5px;background-color:#f25e1f"
           @click="() => hangleBulkCategoryCreation()"
-          ><i class="fas fa-plus"></i> Create Group</span
+          ><i class="fas fa-plus"></i> Send Email</span
         >
       </li>
     </a>
@@ -56,35 +56,28 @@
 
 <script>
 import store from "../../../store/index.js";
-import firebase from "firebase";
+// import firebase from "firebase";
 export default {
-  name: "TagsFilter",
+  name: "GroupsFilter",
   data() {
     return {
-      tagsFetched: false,
+      groupsFetched: false,
       tagsSelected: [],
-      catName:''
+      catName:'',
+      isItemSelected:false
     };
   },
   created() {
-    if (this.getAllTags.length < 1 && !this.tagsFetched) {
+    if (this.getAllGroups.length < 1 && !this.groupsFetched) {
       store.dispatch("fetchAllTags");
-      this.tagsFetched = true;
+      this.groupsFetched = true;
     }
   },
   computed: {
-    getAllTags() {
-      return store.state.allTags;
+    getAllGroups() {
+      return store.state.categoriesList;
     },
-    getCardCategoryList(){
-      return store.state.cardCategoryList;
-    },
-    isItemSelected(){
-      return store.state.isItemSelected;
-    },
-    getAllCards() {
-      return store.state.filteredBusinessCards;
-    },
+    
 
   },
   methods: {
@@ -92,49 +85,10 @@ export default {
       store.commit("setSelectedTags", tag.gid);
       this.tagsSelected.push(tag);
     },
-    hangleBulkCategoryCreation(){
-      if(this.catName != ''){
-        let tempGpMembers = []
-        this.getAllCards.forEach(item=> {
-          if(item.selected){
-            tempGpMembers.push(item.cid)            
-          }
-        })
-        // console.log('creating group',tempGpMembers)
-        firebase.firestore().collection('Groups').add({
-          items:tempGpMembers,
-          name:this.catName,
-          addedBy:firebase.auth().currentUser.uid,
-          addedOn:(new Date()),
-          status:'active'
-        }).then(() => {
-          store.commit("setActivePage", 'groups');
-        })
-      } else{
-        alert("name is missing")
-      } 
+    hangleGroupsSelection(event,group){
+        console.log(group)
+        store.commit('setSelectedGroup',group)
     },
-    hangleBulkTagCreation(){
-      if(this.catName != ''){
-        var batch = firebase.firestore().batch();
-        var db = firebase.firestore();
-        this.getAllCards.forEach(item=> {
-          if(item.selected){
-            let tempRef = db.collection('Cards').doc(item.cid);
-            let tempTags = item.tags;
-            tempTags.push(this.catName)
-            batch.update(tempRef,{
-              tags:tempTags
-            })
-          }
-        })
-        batch.commit().then(() => {
-          // console.log(res)
-        })
-      }else{
-        alert("name is missing")
-      }
-    }
   }
 };
 </script>

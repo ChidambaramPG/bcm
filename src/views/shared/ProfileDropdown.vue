@@ -14,7 +14,7 @@
       ><i
         class="fas fa-cogs"
         
-      ></i>
+      ></i> 
       Settings</a
     >
     <div class="dropdown-divider"></div>
@@ -47,5 +47,15 @@ export default {
 </script>
 
 <style scoped>
+
+a{
+  /* color:white; */
+  font-size:12px;
+  color:grey;
+}
+
+svg{
+  margin-right:5px;
+}
 
 </style>
