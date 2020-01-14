@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light border-bottom shadow">
-    <a class="navbar-brand" href="#"><h5>BCM</h5></a>
+  <nav class="navbar navbar-expand-lg navbar-light border-bottom shadow fixed-top">
+    <router-link class="navbar-brand" to="/" style="color:white;">BCM</router-link>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

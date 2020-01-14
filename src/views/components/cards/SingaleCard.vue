@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3 m-2 shadow rounded">
+  <div class="col-md-3 mr-5 mb-4 shadow rounded">
     <div class="row">
       <div class="col-md-3">
         <div class="row" style="text-align:center;">

@@ -129,7 +129,7 @@ export default {
       store.commit("setCategorySection", "table");
     },
     handleCardSelection(event,id){
-      console.log(event,id)
+      //console.log(event,id)
       if(event.target.checked){
         this.cardsSelected.push(this.getAllCards[id])
       }else{
@@ -158,9 +158,7 @@ export default {
           status:'active'
         }).then(()=> {
           store.commit('setCategorySection','table')
-        }).catch(error => {
-          console.log(error)
-        })
+        });
       }
     }
   },

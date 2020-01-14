@@ -47,10 +47,9 @@ export default new Vuex.Store({
     isItemSelected:false,
     selectedcardGroupItems:[],
     selectedGroupId:"",
-    tagFilterItems:[]
-    
-
-
+    tagFilterItems:[],
+    bulkSelectedCards:[],
+    filteredTableCards:[]
   },
   mutations: {
     setActivePage: (state,payload) => {
@@ -114,7 +113,7 @@ export default new Vuex.Store({
     setTagsList: (state,payload) => {
       state.allTags = [];
       state.allTags = payload;
-      console.log("tags:",state.allTags)
+      // console.log("tags:",state.allTags)
     },
     setSelectedTags: (state,payload) => {
 
@@ -150,6 +149,7 @@ export default new Vuex.Store({
       state.businessCards.forEach((item) => {
         
         let tagPresent = false;
+        
         state.tagFilterItems.forEach( gid => {
           // console.log(item.tags,gid)
             if(item.tags.includes(gid)){
@@ -165,7 +165,12 @@ export default new Vuex.Store({
         
       })
       // console.log(new Set(selectedItems));
-      state.filteredBusinessCards = new Set(selectedItems);
+      if(state.tagFilterItems.length<1){
+        state.filteredBusinessCards = state.businessCards
+      }else{
+        state.filteredBusinessCards = new Set(selectedItems);
+      }
+      
     },
     setSelectedCardList: (state,payload) => {
       let temp = state.filteredBusinessCards;
@@ -204,6 +209,16 @@ export default new Vuex.Store({
       state.filteredBusinessCards = [];
       state.filteredBusinessCards = temp;
     },
+    setBulkSelectedCardList:(state,payload)=>{
+      if(payload.status){
+        state.isItemSelected = true
+        state.bulkSelectedCards = payload.items
+      }else{
+        state.isItemSelected = false
+        state.bulkSelectedCards = []
+      }
+      
+    },
     getSelectedItems:state => {
       let temp = [];
       state.filteredBusinessCards.forEach(item => {
@@ -227,18 +242,49 @@ export default new Vuex.Store({
       // console.log(temp)
       let temp2 = []
       temp.forEach(cid => {
-        console.log(cid)
+        // console.log(cid)
         state.businessCards.forEach(card => {
-          console.log(card.cid)
+          // console.log(card.cid)
           if(cid==card.cid){
             temp2.push({...card,selected:true})
           }
         })
       })
-      console.log(temp2)
+      // console.log(temp2)
       state.selectedcardGroupItems = temp2;
       state.selectedGroupId = payload.gid;
 
+    },
+    exportSelectedGroup:(state,payload)=> {
+      function ConvertToCSV(objArray) {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        var str = '';
+
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+
+            str += line + '\r\n';
+        }
+
+        return str;
+    }
+      if(state.selectedcardGroupItems.length > 0){
+        if(payload=='csv'){
+          var jsonObject = JSON.stringify(state.selectedcardGroupItems);
+          let csvFile = ConvertToCSV(jsonObject);
+          // console.log(csvFile)
+          var hiddenElement = document.createElement('a');
+          hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvFile);
+          hiddenElement.target = '_blank';
+          hiddenElement.download = 'people.csv';
+          hiddenElement.click();
+        }
+      }
     },
     updateCategoryListItems: (state,payload) => {
       let itemFound = false;
@@ -263,7 +309,33 @@ export default new Vuex.Store({
         state.selectedcardGroupItems = temp;
       }
       
-    }
+    },
+
+    searchStringForTable: (state,payload) => {
+      const toLower = text => {
+        return text.toString().toLowerCase();
+      };
+      
+      const searchByName = (items, term) => {
+        if (term) {
+          return items.filter(item =>
+            toLower(
+              item.cFirstname + " " + item.cLastname + " " + item.cOrganizaton
+            ).includes(toLower(term))
+          );
+        }
+      
+        return items;
+      };
+
+      let searched = searchByName(state.businessCards, payload);
+
+      state.filteredBusinessCards = searched;
+
+    },
+    // addColumnToData:(state,payload) => {
+    //   console.log(payload)
+    // }
   },
   actions: {
     fetchAllBusinessCards:({state}) => {
@@ -275,6 +347,7 @@ export default new Vuex.Store({
         });
         state.filteredBusinessCards = cards;
         state.businessCards = cards;
+        state.filteredTableCards = cards;
       })
     },
     fetchAllUsers: ({state}) => {
@@ -304,11 +377,11 @@ export default new Vuex.Store({
       .onSnapshot(resp => {
         // temp = [];
         let temp = [];
-        console.log("fetched again")
+        // console.log("fetched again")
         resp.forEach(item => {
           temp.push({...item.data(),gid:item.id,selected:false})
         })
-        console.log("fetched tags:",temp)
+        // console.log("fetched tags:",temp)
         commit('setTagsList',temp)
       })
 
@@ -316,16 +389,16 @@ export default new Vuex.Store({
     },
     removeTagfromItem: ({state},payload) => {
 
-      console.log("payload:",payload)
+      // console.log("payload:",payload)
       let temp = [];
       state.selectedCardTags.forEach(item => {
-        console.log(item)
+        // console.log(item)
         if(item != payload){
           temp.push(item);
         }
       })
       state.selectedCardTags = temp;
-      console.log(state.selectedCard)
+      // console.log(state.selectedCard)
       firebase.firestore().collection('Cards').doc(state.selectedCard.cid).update({
         tags:temp
       })

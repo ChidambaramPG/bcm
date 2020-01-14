@@ -1,7 +1,7 @@
 <template>
   <div id="">
     <top-bar />
-    <div class="container">
+    <div class="container"  style="margin-top:50px">
         <div class="row">
             <div class="col-md-2">
                 <groups-list />
@@ -9,6 +9,7 @@
             <div class="col-md-10">
                 <group-items />
                 <email-section />
+                <export-list />
             </div>
         </div>
         
@@ -22,6 +23,7 @@ import TopBar from "../shared/TopBar.vue";
 import GroupsList from "../components/groups/GroupsList.vue";
 import GroupItems from "../components/groups/GroupItems.vue";
 import EmailSection from "../components/groups/EmailSection.vue";
+import ExportList from "../components/groups/ExportList.vue";
 
 import store from '../../store/index.js'
 export default {
@@ -30,7 +32,8 @@ export default {
     TopBar,
     GroupsList,
     GroupItems,
-    EmailSection
+    EmailSection,
+    ExportList
   },
   computed:{
     getCategorySection(){

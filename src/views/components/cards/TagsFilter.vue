@@ -15,22 +15,22 @@
       >
       <span
         class="item-name item-selected pl-2"
-
         :id="index"
         @click="event => hangleTagsSelection(event, tag)"
         v-else
-        > {{ tag.gid }}</span
+      >
+        {{ tag.gid }}</span
       >
     </li>
 
-    <li v-if="isItemSelected" class="tag-item list-inline-item">
-      <input class="form-control custom-tag-cat-input" 
-      v-model="catName"
-      style="font-size:9px;border-radius:10px;margin-top:5px;"
+    <li  class="tag-item list-inline-item">
+      <input
+        class="form-control custom-tag-cat-input"
+        v-model="catName"
+        style="font-size:9px;border-radius:10px;margin-top:5px;"
       />
-
     </li>
-    <a href="#" v-if="isItemSelected">
+    <a href="#" >
       <li class="tag-item list-inline-item">
         <span
           class="item-name create-group"
@@ -39,7 +39,7 @@
           ><i class="fas fa-plus"></i> Add Tag</span
         >
       </li>
-    </a>     
+    </a>
     <a href="#" v-if="isItemSelected">
       <li class="tag-item list-inline-item">
         <span
@@ -50,7 +50,6 @@
         >
       </li>
     </a>
-    
   </ul>
 </template>
 
@@ -63,7 +62,7 @@ export default {
     return {
       tagsFetched: false,
       tagsSelected: [],
-      catName:''
+      catName: ""
     };
   },
   created() {
@@ -76,63 +75,118 @@ export default {
     getAllTags() {
       return store.state.allTags;
     },
-    getCardCategoryList(){
+    getCardCategoryList() {
       return store.state.cardCategoryList;
     },
-    isItemSelected(){
+    isItemSelected() {
       return store.state.isItemSelected;
     },
     getAllCards() {
       return store.state.filteredBusinessCards;
     },
-
+    getBulkSelectedCards() {
+      return store.state.bulkSelectedCards;
+    }
   },
   methods: {
     hangleTagsSelection(event, tag) {
       store.commit("setSelectedTags", tag.gid);
       this.tagsSelected.push(tag);
     },
-    hangleBulkCategoryCreation(){
-      if(this.catName != ''){
-        let tempGpMembers = []
-        this.getAllCards.forEach(item=> {
-          if(item.selected){
-            tempGpMembers.push(item.cid)            
-          }
-        })
-        // console.log('creating group',tempGpMembers)
-        firebase.firestore().collection('Groups').add({
-          items:tempGpMembers,
-          name:this.catName,
-          addedBy:firebase.auth().currentUser.uid,
-          addedOn:(new Date()),
-          status:'active'
-        }).then(() => {
-          store.commit("setActivePage", 'groups');
-        })
-      } else{
-        alert("name is missing")
-      } 
-    },
-    hangleBulkTagCreation(){
-      if(this.catName != ''){
-        var batch = firebase.firestore().batch();
-        var db = firebase.firestore();
-        this.getAllCards.forEach(item=> {
-          if(item.selected){
-            let tempRef = db.collection('Cards').doc(item.cid);
-            let tempTags = item.tags;
-            tempTags.push(this.catName)
-            batch.update(tempRef,{
-              tags:tempTags
+    hangleBulkCategoryCreation() {
+      if (this.catName != "") {
+        if (this.getBulkSelectedCards.length > 0) {
+          console.log("bulk selectio n");
+          let tempGpMembers = [];
+          this.getBulkSelectedCards.forEach(item => {
+            // if(item.selected){
+            tempGpMembers.push(item.cid);
+            // }
+          });
+          console.log(tempGpMembers);
+          firebase
+            .firestore()
+            .collection("Groups")
+            .add({
+              items: tempGpMembers,
+              name: this.catName,
+              addedBy: firebase.auth().currentUser.uid,
+              addedOn: new Date(),
+              status: "active"
             })
+            .then(() => {
+              store.commit("setActivePage", "groups");
+            });
+        } else {
+          let tempGpMembers = [];
+          this.getAllCards.forEach(item => {
+            if (item.selected) {
+              tempGpMembers.push(item.cid);
+            }
+          });
+          // console.log('creating group',tempGpMembers)
+          firebase
+            .firestore()
+            .collection("Groups")
+            .add({
+              items: tempGpMembers,
+              name: this.catName,
+              addedBy: firebase.auth().currentUser.uid,
+              addedOn: new Date(),
+              status: "active"
+            })
+            .then(() => {
+              store.commit("setActivePage", "groups");
+            });
+        }
+      } else {
+        alert("name is missing");
+      }
+    },
+    hangleBulkTagCreation() {
+      if (this.catName != "") {
+        
+        if (this.getBulkSelectedCards.length > 0) {
+          let batch = firebase.firestore().batch();
+          let db = firebase.firestore();
+          this.getBulkSelectedCards.forEach(item => {
+            // if (item.selected) {
+              let tempRef = db.collection("Cards").doc(item.cid);
+              let tempTags = item.tags;
+              tempTags.push(this.catName);
+              batch.update(tempRef, {
+                tags: tempTags
+              });
+            // }
+          });
+          batch.commit().then(() => {
+            // console.log(res)
+          });
+        } else {
+          let batch = firebase.firestore().batch();
+          let db = firebase.firestore();
+          let selectedCount = 0
+          this.getAllCards.forEach(item => {
+            if (item.selected) {
+              selectedCount++
+              let tempRef = db.collection("Cards").doc(item.cid);
+              let tempTags = item.tags;
+              tempTags.push(this.catName);
+              batch.update(tempRef, {
+                tags: tempTags
+              });
+            }
+          });
+          batch.commit().then(() => {
+            // console.log(res)
+          });
+
+          if(selectedCount == 0){
+            db.collection("Tags").doc(this.catName).set({status:'active'})
           }
-        })
-        batch.commit().then(() => {
-          // console.log(res)
-        })
-      }else{
-        alert("name is missing")
+        }
+      } else {
+        alert("name is missing");
       }
     }
   }
@@ -140,15 +194,15 @@ export default {
 </script>
 
 <style scoped>
-li{
-  margin-bottom:5px;
+li {
+  margin-bottom: 5px;
 }
 .tag-item {
   text-decoration: none;
 }
 .tags-list {
   padding: 0 3px 10px 3px;
-  background-color:rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
 .item-name {
   padding: 5px 10px 5px 5px;
@@ -164,13 +218,13 @@ li{
   color: white;
   font-size: 10px;
 }
-.item-name:hover{
-  opacity:0.8;
+.item-name:hover {
+  opacity: 0.8;
 }
 .close-btn {
   border-width: 1px;
   background-color: white;
-  margin-right:5px;
+  margin-right: 5px;
   border-radius: 10px;
   padding: 5px;
 }
@@ -196,7 +250,7 @@ li{
   color: #f52552;
   border-radius: 10px;
 }
-.custom-tag-cat-input{
-  font-size:10px;
+.custom-tag-cat-input {
+  font-size: 10px;
 }
 </style>

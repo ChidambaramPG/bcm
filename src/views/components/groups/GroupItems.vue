@@ -1,6 +1,6 @@
 <template>
-  <section class="mt-5">
-    <div class="row border-left">
+  <section class="mt-5" style="">
+    <div class="row">
       <div class="col-md-12">
         <div class="row shadow ml-2 p-3">
           <div class="col-md-10">
@@ -45,14 +45,14 @@
         </div> -->
       </div>
     </div>
-    <div class="row pl-3 border-left" v-if="!isAddMemberOn">
+    <div class="row pl-3 mt-3" v-if="!isAddMemberOn">
       <single-card
         :data="card"
         v-for="(card, index) in getGroupItems"
         :key="index"
       />
     </div>
-    <div class="row pl-3 border-left" v-if="isAddMemberOn">
+    <div class="row pl-3 " v-if="isAddMemberOn">
       <single-card
         :data="card"
         v-for="(card, index) in allCards"

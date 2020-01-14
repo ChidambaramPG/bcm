@@ -1,11 +1,8 @@
 <template>
   <div class="home">
     <div class="row" v-if="showSidebar">
-      <div class="col-md-2 sidebar-content">
-        <sidebar />
-      </div>
       <div class="col-md-10 page-content border-left">
-        <dashboard v-if="activePage === 'dashboard'" />
+        <dashboard  v-if="activePage === 'dashboard'" />
         <brochure v-else-if="activePage === 'brochures'" />
         <cards v-else-if="activePage === 'cards'" />
         <users v-else-if="activePage === 'users'" />
@@ -16,7 +13,7 @@
       </div>
     </div>
     <div class="row" v-else>
-      <div class="col-md-12 page-content border-left">
+      <div  class="col-md-12 page-content border-left">
         <dashboard v-if="activePage === 'dashboard'" />
         <brochure v-else-if="activePage === 'brochures'" />
         <cards v-else-if="activePage === 'cards'" />
@@ -27,9 +24,9 @@
         <groups v-else-if="activePage == 'lists'"/>
       </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <all-modals />
-    </div>
+    </div> -->
   </div>
 </template>
 

@@ -26,9 +26,17 @@
     <div class="row">
       <div class="col-md-12 ">
         <span
+          style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:#0094ff;"
+          class="badge badge-info tag-pills"
+          v-for="(tag, indx) in selectedTags"
+          :key="indx+tag"
+          @click="() => addTagToCard(tag)"
+          >{{ tag }}</span
+        >
+        <span
           style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:grey;"
           class="badge badge-info tag-pills"
-          v-for="(tag, index) in getAllTags"
+          v-for="(tag, index) in unselectedTags"
           :key="index"
           @click="() => addTagToCard(tag.gid)"
           >{{ tag.gid }}</span
@@ -40,17 +48,68 @@
 
 <script>
 import store from "../../../store/index.js";
+import firebase from "firebase";
 export default {
   name: "AddNewTags",
+  data(){
+    return{
+      allTags:[],
+      selectedTags:[],
+      unselectedTags:[]
+    }
+  },
+  created(){
+    firebase.firestore().collection('Tags')
+      .onSnapshot(resp => {
+        // temp = [];
+        let temp = [];
+        // console.log("fetched again")
+        resp.forEach(item => {
+          temp.push({...item.data(),gid:item.id,selected:false})
+        })
+        // console.log("fetched tags:",temp)
+        this.allTags = temp;
+        this.unselectedTags = temp;
+      })
+
+  },
   methods: {
     handleAddTag() {
-
       let tag = document.getElementById("tag").value;
-      store.commit("addTagsToCard", tag);
-      document.getElementById("tag").value = "";
+      if(tag.length > 3 ){        
+        store.commit("addTagsToCard", tag);
+        document.getElementById("tag").value = "";
+      }
+      
     },
-    addTagToCard(){
+    addTagToCard(gid){
+      
+      if(this.selectedTags.length < 1){
+        this.selectedTags.push(gid)
+        // console.log(this.selectedTags)
+      }else{
+        let itemFound = false;
+        this.selectedTags.forEach(item => {
+          if(item == gid){
+            itemFound = true;
+          }
+        })
+        if(itemFound){
+          this.selectedTags = this.selectedTags.filter(item2 => {
+            return item2 != gid;
+          })
+        }else{
+          this.selectedTags.push(gid)
+        }
+        // console.log(this.selectedTags)
+        
+      }
 
+      this.unselectedTags = this.unselectedTags.filter(item3=> {
+        return item3.gid != gid;
+      })
+
+      store.commit("addTagsToCard", gid);
     }
   },
   computed: {

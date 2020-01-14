@@ -17,6 +17,14 @@
       ></i> 
       Settings</a
     >
+    <a class="dropdown-item" href="#"
+    @click.prevent="() => importExcelData()"
+      ><i
+        class="fas fa-arrow-down"
+        
+      ></i> 
+      Import excel</a
+    >
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="#"
       @click.prevent="handleAdminSignout"><i class="fas fa-sign-out-alt"></i> Signout</a
@@ -41,6 +49,10 @@ export default {
         alert(error)
       });
 
+    },
+    importExcelData(){
+      // var newwindow=window.open("url of .xls","window2","");
+      // console.log(newwindow)
     }
   }
 };

@@ -17,7 +17,7 @@
               style="font-size:10px;font-weight:700"
               v-if="data.cFirstname != ''"
               >{{ data.cFirstname.toUpperCase()
-              }}<span>{{ data.status }}</span></span
+              }}</span
             >
             <span style="font-size:10px;font-weight:700" v-else>{{
               "not added".toLowerCase()

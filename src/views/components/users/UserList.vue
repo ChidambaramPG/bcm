@@ -1,102 +1,25 @@
 <template>
   <div class="">
     <div class="">
-      <div class="row"  style="overflow:none">
-        <!-- <div class="col-md-12">
-          <h5 class="table-title">Latest additions</h5>
-          <table class="table table-hover">
-            <thead class="table-head">
-              <tr>
-                <th>User</th>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Active</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(user,index) in getUsers" :key="index">
-                <td>
-                  <img class="card-img img-responsive rounded-circle" :src="user.image"/>
-                </td>
-                <td>
-                  {{user.name}}
-                </td>
-                <td>{{user.type}}</td>
-                <td>{{user.phone}}</td>
-                <td>{{user.email}}</td>
-                
-                <td>{{user.address}}</td>
-                <td>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                    <label class="custom-control-label" for="customCheck1"></label>
-                  </div>
-                </td>
-              </tr>              
-            </tbody>
-          </table>
-        </div> -->
-        <div class="col-md-3 shadow p-3 m-2" v-for="(user,index) in getUsers" :key="index">
-          <div class="row">
-            <div class="col-md-4" style="text-align:center;margin-top:10px;">
-              <img class="rounded-circle" style="width:100px;" :src="user.image" />
-            </div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-8">
-                  <span style="text-align:left !important;font-size:10px;font-weight:700;">{{user.name.toUpperCase()}}</span>
-                  
-                </div>
-                <div class="col-md-4" style="text-align:right !important;font-size:10px;color:#2f973b">
-                  <span >Active</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <span style="text-align:right !important;font-size:10px;">{{user.address}}</span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                  <span style="text-align:right !important;font-size:10px;">{{user.phone}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+      <div class="row">
+        <div class="col-md-12 shadow p-2">
+          <span style="font-weight:600;font-size:12px;color:#161e7a;">{{"Employees".toUpperCase()}}</span>
         </div>
       </div>
+      <div class="row mt-3"  style="overflow:none">  
+        <single-user v-for="(user,index) in getUsers" :key="index" :user="user" /> 
+      </div>
     </div>
-    <!-- <div class="row pagination-row">
-      <nav aria-label="Page navigation page-nav">
-        <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item active"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div> -->
   </div>
 </template>
 <script>
 import store from '../../../store/index.js';
+import SingleUser from "./SingleUser.vue";
 export default {
   name: "UserList",
+  components:{
+    SingleUser
+  },
   methods:{
     showEditCardsModal(){
       store.commit('toggleEditCardModal')

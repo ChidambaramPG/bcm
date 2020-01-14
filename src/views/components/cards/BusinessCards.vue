@@ -9,7 +9,7 @@
             <tags-filter />
           </div>
         </div>
-        <div class="col-md-10 border-left pl-4">
+        <div class="col-md-10  pl-4 cards-section">
           <div class="row shadow-sm mb-4 p-3">
             <div class="col-md-10">
               <span 
@@ -17,15 +17,36 @@
                 style="font-weight:600;font-size:12px;color:#161e7a">{{"Available Cards".toUpperCase()}}
               </span>
             </div>
-            <div class="col-md-2">
-              
+            <div class="col-md-2" v-if="selectedView =='list'" style="text-align:right">
+              <a href="#" @click.prevent="() => changeView('list')">
+                <md-icon class="fas fa-list" style="color:rgb(0, 148, 255)" />
+              </a>
+              <a href="#" @click.prevent="() => changeView('card')">
+                <md-icon class="fas fa-address-card ml-2"  />
+              </a>
+            </div>
+            <div class="col-md-2"  v-if="selectedView=='card'" style="text-align:right">
+             
+              <a href="#" @click.prevent="() => changeView('list')">
+                <md-icon class="fas fa-list" />
+              </a>
+              <a href="#" @click.prevent="() => changeView('card')">
+                <md-icon class="fas fa-address-card ml-2" style="color:rgb(0, 148, 255)"/>
+              </a>
+             
             </div>
           </div>
           
-          <div class="row ml-2 mb-4">
+          <div class="row mb-4" v-if="selectedView=='card'">
             <single-card :data="card" v-for="(card, index) in getAllCards" :key="index"/>
           </div>
+
+          <div class="row mb-4" v-if="selectedView=='list'">
+            <cards-list :cards="getAllCards"/>
+          </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -35,23 +56,30 @@ import store from "../../../store/index.js";
 // import TagSection from "./TagSection.vue";
 import TagsFilter from "./TagsFilter.vue";
 import SingleCard from "./SingaleCard.vue";
+import CardsList from "./CardsList.vue";
 
 export default {
   name: "BusinessCards",
   data(){
     return{
       deleteItemAlert:false,
+      selectedView:"list"
     }
   },
   components: {
     // TagSection,
     TagsFilter,
-    SingleCard
+    SingleCard,
+    CardsList
   },
   methods: {
     // showDeleteItemDiv(){
     //   this.deleteItemAlert = !this.deleteItemAlert;
     // },
+    changeView(view){
+      this.selectedView = view;
+      store.commit('setBulkSelectedCardList',{status:false,items:[]})
+    },
     showEditCardsModal() {
       store.commit("toggleEditCardModal");
     },
@@ -113,6 +141,14 @@ export default {
 };
 </script>
 <style scoped>
+
+@media (min-width: 768px) { 
+  .cards-section{
+    border-left:1px 
+  }
+
+}
+
 /* .filter-header{
   border-style: solid;
 } */

@@ -1,7 +1,7 @@
 <template>
   <div id="">
     <top-bar />
-    <div class="container">
+    <div class="container" style="margin-top:100px">
       <!-- <user-header v-if="getUsersSection == 'table'"/> -->
       <user-list class="brochures-table" v-if="getUsersSection == 'table'"/>
       <add-new-user v-if="getUsersSection == 'add'"/>
