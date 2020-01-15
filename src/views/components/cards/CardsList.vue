@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="width:100%">
     <md-table
       style="font-size:10px;width:100%"
-      v-model="getAllCards"
+      v-model="allCards"
       md-sort="cFirstname"
       md-sort-order="asc"
       md-card
@@ -10,31 +10,42 @@
       @md-selected="onSelect"
     >
       <md-table-toolbar>
-        <div class="md-toolbar-section-start">
+        <!-- <div class="md-toolbar-section-start">
           <h1 class="md-title">Cards</h1>
+        </div> -->
+        <div class="row" style="width:100%;">
+          <div class="col-md-6">
+            <md-field md-clearable style="width:50%;margin-right:10px;" >
+              <md-input
+                placeholder="Search"
+                v-model="search"
+                @input="searchOnTable"
+              />
+            </md-field>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3" style="text-align:right;">
+            <md-field class="md-toolbar-section-end" style="" >
+              <label id="columnsInputLabel" for="movies">Columns</label>
+              <md-select v-model="defaultColumns" multiple @md-selected="toggleSelectedColumn" md-dense>
+                <md-option
+                  :key="index"
+                  v-for="(col, index) in getColumns"
+                  :name="col"
+                  :value="col"
+                  
+                  >{{ removeInitialC(col) }}</md-option
+                >
+              </md-select>
+            </md-field>
+
+          </div>
         </div>
+        
 
-        <md-field style="width:30%;margin-right:10px;">
-          <label for="movies">Columns</label>
-          <md-select v-model="defaultColumns" multiple @md-selected="toggleSelectedColumn">
-            <md-option
-              :key="index"
-              v-for="(col, index) in getColumns"
-              :name="col"
-              :value="col"
-              
-              >{{ removeInitialC(col) }}</md-option
-            >
-          </md-select>
-        </md-field>
+        
 
-        <md-field md-clearable class="md-toolbar-section-end">
-          <md-input
-            placeholder="Search"
-            v-model="search"
-            @input="searchOnTable"
-          />
-        </md-field>
+        
       </md-table-toolbar>
 
       <md-table-empty-state
@@ -89,7 +100,8 @@ export default {
     selectedColumns:[],
     allColumns:[],
     columnsUpdated:false,
-    selectedCard:[]
+    selectedCard:[],
+    allCards:[]
   }),
   props: ["cards"],
   methods: {
@@ -104,6 +116,7 @@ export default {
       store.commit("searchStringForTable",this.search)
     },
     onSelect(items) {
+      // console.log(items)
       this.selected = items;
       if(this.selected.length > 0) {
         store.commit('setBulkSelectedCardList',{status:true,items:items})
@@ -126,10 +139,12 @@ export default {
   },
   computed: {
     getAllCards() {
+      // console.log(Array.from(store.state.filteredBusinessCards))
       return  Array.from(store.state.filteredBusinessCards)
     },
     getColumns(){
-      return Object.keys(store.state.filteredBusinessCards[0])
+      console.log('columns:',this.getAllCards)
+      return Object.keys(this.getAllCards[0])
     }
   },
  
@@ -153,6 +168,12 @@ export default {
   beforeCreate() {
     store.dispatch("fetchAllBusinessCards");
   },
+  watch:{
+    getAllCards(){
+      console.log(this.getAllCards)
+      this.allCards = this.getAllCards
+    }
+  }
 
 };
 </script>
@@ -161,4 +182,27 @@ export default {
 /* .md-field {
     max-width: 300px;
   } */
+
+.md-toolbar.md-table-toolbar{
+  background-color:#e9ebee;
+  color:white;
+}
+
+/* .md-toolbar.md-theme-default.md-transparent .md-title{
+
+color:white;
+  } */
+
+/* #columnsInputLabel{
+  color:white !important;
+} */
+
+.md-menu.md-select input{
+  color:white;
+}
+
+:-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
 </style>

@@ -4,14 +4,23 @@
     <div class="row">
         
       <div class="col-md-8"> 
-        <input
+        <md-field>
+          <label>Initial Value</label>
+          <md-input 
+            type="text"
+            placeholder="personal,events,etc.."
+            id="tag"
+            name="tag"
+          ></md-input>
+        </md-field>
+        <!-- <input
         style="font-size:10px;margin-bottom:10px;"
           type="text"
           class="form-control"
           placeholder="personal,events,etc.."
           id="tag"
           name="tag"
-        />
+        /> -->
       </div>
       <div class="col-md-4" style="padding:0">
         <button

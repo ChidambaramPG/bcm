@@ -1,7 +1,7 @@
 <template>
   <div id="">
     <top-bar />
-    <div class="container" style="margin-top:100px;">
+    <div class="container" style="padding-top:10px;">
       <!-- <cards-header /> -->
       <!-- <img :src="require('../../assets/img/background.jpg')" /> -->
       <business-cards class="brochures-table" v-if="cardsSection == 'table'" />

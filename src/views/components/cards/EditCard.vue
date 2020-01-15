@@ -388,6 +388,12 @@ export default {
 </script>
 
 <style scoped>
+
+.md-card.md-theme-default {
+    background-color: #e1e1e1 !important;
+
+}
+
 .btn-add {
   background-color: #f95473;
   color: white;

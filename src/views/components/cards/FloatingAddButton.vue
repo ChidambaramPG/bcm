@@ -1,6 +1,6 @@
 <template>
   <a href="#" class="float" v-if="getCardsSection == 'table'" @click.prevent="showAddNewCardSection">
-    <i class="fa fa-plus my-float"></i>
+    <i class="fa fa-plus my-float" ></i>
   </a>
 </template>
 
@@ -26,6 +26,10 @@ export default {
 
 <style scoped>
 
+svg{
+    color:white;
+}
+
 
 .float{
 	position:fixed;
@@ -33,7 +37,7 @@ export default {
 	height:60px;
 	bottom:40px;
 	right:40px;
-	background-color:#3dc24c;
+	background-color:#3578e5;
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;

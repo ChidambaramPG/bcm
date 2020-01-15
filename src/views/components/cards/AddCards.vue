@@ -1,5 +1,5 @@
 <template>
-  <section class="">
+  <section class="pt-5">
     <div class="row shadow p-2">
       <div class="col-md-1" style="text-align:left;color:#161e7a;">
         <a href="#" @click.prevent="handleBackToCards" ><i class="fas fa-arrow-left fa-sm"></i></a>
@@ -23,13 +23,23 @@
 
         <div class="row media-buttons">
           <div class="col-md-6">
-            <input
+            <md-field>
+              <label>Initial Value</label>
+              <md-input 
+                type="file"
+                accept="image/*"
+                id="cardImageSelect"
+                style="font-size:10px;"
+                @change="() => handleFileSelected()"
+              ></md-input>
+            </md-field>
+            <!-- <input
               type="file"
               accept="image/*"
               id="cardImageSelect"
               style="font-size:10px;"
               @change="() => handleFileSelected()"
-            />
+            /> -->
           </div>
 
           <div class="alert alert-danger" v-if="!imagePresent">
@@ -41,150 +51,233 @@
         <form action="">
           <div class="row">
             <div class="col-md-3">
-              <label for="exampleFormControlSelect1" style="font-size:10px;">Salutaton</label>
+              <md-field>
+                <label for="movie">Salutaton</label>
+                <md-select v-model="salutation" name="salutaton" id="movie">
+                  <md-option value="fight-club">Fight Club</md-option>
+                  <md-option value="Mr">Mr</md-option>
+                  <md-option value="Mrs">Mrs</md-option>
+                  <md-option value="Ms">Ms</md-option>
+                  <md-option value="Dr">Dr</md-option>
+                  <md-option value="Other">Other</md-option>
+                  
+                </md-select>
+              </md-field>
+              <!-- <label for="exampleFormControlSelect1" style="font-size:10px;">Salutaton</label>
               <select class="form-control" id="userType" v-model="salutation" style="font-size:10px;">
                 <option value="Mr">Mr</option>
                 <option value="Mrs">Mrs</option>
                 <option value="Ms">Ms</option>
                 <option value="Dr">Dr</option>
                 <option value="Other">Other</option>
-              </select>
+              </select> -->
             </div>
             <div class="col-md-3">
-              <label for="" style="font-size:10px;">First Name</label>
+              <!-- <label for="" style="font-size:10px;">First Name</label>
               <input
                 type="text" 
                 style="font-size:10px;"
                 class="form-control"
                 placeholder="John"
                 v-model="cFirstname"
-              />
+              /> -->
+              <md-field>
+                <label>First Name</label>
+                <md-input type="text" 
+                placeholder="John"
+                v-model="cFirstname"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Last Name</label>
+              <!-- <label for="">Last Name</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Doe"
                 v-model="cLastname"
-              />
+              /> -->
+              <md-field>
+                <label>Last Name</label>
+                <md-input type="text"
+                placeholder="Doe"
+                v-model="cLastname"></md-input>
+              </md-field>
             </div>
-            <div class="col-md-3" style="font-size:10px;">
-              <label for="exampleFormControlSelect1">Type</label>
-              <select style="font-size:10px;" class="form-control" id="userType" v-model="cType">
-                <option value="End Customer">End Customer</option>
-                <option value="Reseller">Reseller</option>
-                <option value="OEM">OEM</option>
-                <option value="Commercal">Commercal</option>
-                <option value="Consumer">Consumer</option>
-                <option value="Component">Component</option>
-              </select>
+            <div class="col-md-3" >
+              <md-field>
+                <label for="movie">Type</label>
+                <md-select style="font-size:10px;" v-model="cType">
+                  <md-option value="End Customer">End Customer</md-option>
+                  <md-option value="Reseller">Reseller</md-option>
+                  <md-option value="OEM">OEM</md-option>
+                  <md-option value="Commercal">Commercal</md-option>
+                  <md-option value="Consumer">Consumer</md-option>
+                  <md-option value="Component">Component</md-option>
+                </md-select>
+              </md-field>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-3" style="font-size:10px;">
-              <label for="">Organization</label>
-              <input style="font-size:10px;"
+            <div class="col-md-3">
+              <!-- <label for="">Organization</label> -->
+              <!-- <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Hp, Dell, etc.."
                 v-model="cOrganization"
-              />
+              /> -->
+              <md-field>
+                <label>Organization</label>
+                <md-input placeholder="Hp, Dell, etc.."
+                v-model="cOrganization"></md-input>
+              </md-field>
+            </div>
+            <div class="col-md-3">
+              <md-field>
+                <label for="exampleFormControlSelect1">Tier</label>
+                <md-select id="userType" v-model="cTier">
+                  <md-option value="Commercial">Commercial</md-option>
+                  <md-option value="Consumer">Consumer</md-option>
+                  <md-option value="Component">Component</md-option>
+                </md-select>
+
+              </md-field>
+              
+
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="exampleFormControlSelect1">Tier</label>
-              <select style="font-size:10px;" class="form-control" id="userType" v-model="cTier">
-                <option value="Commercial">Commercial</option>
-                <option value="Consumer">Consumer</option>
-                <option value="Component">Component</option>
-              </select>
-            </div>
-            <div class="col-md-3" style="font-size:10px;">
-              <label for="">Designation</label>
+              <!-- <label for="">Designation</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Manager, Head, Client, etc.."
                 v-model="cDesignation"
-              />
+              /> -->
+              <md-field>
+                <label>Designation</label>
+                <md-input  placeholder="Manager, Head, Client, etc.."
+                v-model="cDesignation"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Email</label>
+              <!-- <label for="">Email</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Doe"
                 v-model="cEmail"
-              />
+              /> -->
+              <md-field>
+                <label>Email</label>
+                <md-input placeholder="somebody@somerwhere.com"
+                v-model="cEmail"></md-input>
+              </md-field>
+            
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Phone</label>
+              <!-- <label for="">Phone</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="+919746747214"
                 v-model="cPhone"
-              />
+              /> -->
+
+              <md-field>
+                <label>Phone</label>
+                <md-input  placeholder="+919746747214"
+                v-model="cPhone"></md-input>
+              </md-field>
             </div>
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Alternate Number</label>
+              <!-- <label for="">Alternate Number</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="+919746747214"
                 v-model="cAltPhone"
-              />
+              /> -->
+               <md-field>
+                <label>Alternate Number</label>
+                <md-input   placeholder="+919746747214"
+                v-model="cAltPhone"></md-input>
+              </md-field>
             </div>
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Role</label>
+              <!-- <label for="">Role</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cRole"
-              />
+              /> -->
+              <md-field>
+                <label>Role</label>
+                <md-input   placeholder="Decission Maker"
+                v-model="cRole"></md-input>
+              </md-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Address</label>
+              <!-- <label for="">Address</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cAddress"
-              />
+              /> -->
+              <md-field>
+                <label>Address</label>
+                <md-input  placeholder="12B Baker st"
+                v-model="cAddress"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">City</label>
+              <!-- <label for="">City</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cCity"
-              />
+              /> -->
+               <md-field>
+                <label>City</label>
+                <md-input placeholder="Cochin"
+                v-model="cCity"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Pincode</label>
+              <!-- <label for="">Pincode</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cPincode"
-              />
+              /> -->
+              <md-field>
+                <label>Pincode</label>
+                <md-input placeholder="pincode"
+                v-model="cPincode"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Country</label>
+              <!-- <label for="">Country</label>
               <input style="font-size:10px;"
                 type="text"
                 class="form-control"
                 placeholder="Decission Maker"
                 v-model="cCountry"
-              />
+              /> -->
+              <md-field>
+                <label>Country</label>
+                <md-input placeholder="India"
+                v-model="cCountry"></md-input>
+              </md-field>
             </div>
           </div>
         </form>

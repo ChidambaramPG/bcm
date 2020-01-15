@@ -4,17 +4,17 @@
       <div class="row table-row">
         <div class="col-md-2">
           <div class="filter-header">
-            <h5 class="table-title shadow-sm mb-4" style="font-weight:600;font-size:12px;color:#161e7a;">
+            <h5 class="table-title" style="font-weight:600;font-size:12px;color:#161e7a;">
               {{"Filters".toUpperCase()}}</h5>
             <tags-filter />
           </div>
         </div>
         <div class="col-md-10  pl-4 cards-section">
-          <div class="row shadow-sm mb-4 p-3">
-            <div class="col-md-10">
+          <div class="row mb-4 pt-3 pb-3">
+            <div class="col-md-10" style="padding-left:0px;">
               <span 
                 class="table-title" 
-                style="font-weight:600;font-size:12px;color:#161e7a">{{"Available Cards".toUpperCase()}}
+                style="font-weight:600;font-size:12px;color:#161e7a">{{"Contacts".toUpperCase()}}
               </span>
             </div>
             <div class="col-md-2" v-if="selectedView =='list'" style="text-align:right">

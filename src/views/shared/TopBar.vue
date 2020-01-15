@@ -66,7 +66,7 @@ export default {
   width: 100% !important;
   height: 50px;
   z-index:9999;
-  background-color:#0094ff;
+  background-color:#3578e5;
   
   /* background-color: grey; */
   /* background-color: #f95473 !important; */

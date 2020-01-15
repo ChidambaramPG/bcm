@@ -1,19 +1,29 @@
 <template>
-  <section class="tags-section" style="font-size:10px;font-family:Lato">
+  <section class="tags-section" >
       <label>Add Tags</label>
     <div class="row">
         
       <div class="col-md-8"> 
-        <input
+        <md-field>
+          <!-- <label>Initial Value</label> -->
+          <md-input 
+            type="text"
+            placeholder="personal,events,etc.."
+            id="tag"
+            name="tag"
+          ></md-input>
+          <md-button class="md-raised md-primary" @click.prevent="handleAddTag">Add New Tag</md-button>
+        </md-field>
+        <!-- <input
         style="font-size:10px;margin-bottom:10px;"
           type="text"
           class="form-control"
           placeholder="personal,events,etc.."
           id="tag"
           name="tag"
-        />
+        /> -->
       </div>
-      <div class="col-md-4" style="padding:0">
+      <!-- <div class="col-md-4" style="padding:0">
         <button
           style="font-size:10px;background-color:#0094ff;"
           class="btn btn-block rounded btn-new"
@@ -21,12 +31,12 @@
         >
           <span>Add</span>
         </button>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-md-12 ">
-        <span
-          style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:#0094ff;"
+        <span             
+          style="background-color:#3578e5;font-size:13px;margin:5px;font-weight:300;padding:5px;"      
           class="badge badge-info tag-pills"
           v-for="(tag, indx) in selectedTags"
           :key="indx+tag"
@@ -34,7 +44,7 @@
           >{{ tag }}</span
         >
         <span
-          style="font-size:10px;font-weight:300;margin-bottom:10px;padding:5px;background-color:grey;"
+          style="background-color:#e9ebee;font-size:13px;color:#4b4f56;margin:5px;font-weight:300;padding:5px;" 
           class="badge badge-info tag-pills"
           v-for="(tag, index) in unselectedTags"
           :key="index"
