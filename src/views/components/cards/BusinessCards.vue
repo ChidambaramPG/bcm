@@ -63,14 +63,15 @@ export default {
   data(){
     return{
       deleteItemAlert:false,
-      selectedView:"list"
+      selectedView:"list",
+      cardsFetched:false
     }
   },
   components: {
     // TagSection,
     TagsFilter,
     SingleCard,
-    CardsList
+    CardsList,
   },
   methods: {
     // showDeleteItemDiv(){
@@ -135,8 +136,12 @@ export default {
       return store.state.cardCategoryList;
     }
   },
-  beforeCreate() {
-    store.dispatch("fetchAllBusinessCards");
+  mounted() {
+    if(this.getAllCards.length < 1 && !this.cardsFetched){
+      store.dispatch("fetchAllBusinessCards");
+      this.cardsFetched = true;
+    }
+    
   }
 };
 </script>

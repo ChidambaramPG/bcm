@@ -2,7 +2,7 @@
   <ul class=" navbar-nav">
     <!-- <menu-items name="dashboard" /> -->
     <menu-items name="cards" />
-    <menu-items name="users" />
+    <!-- <menu-items name="users" /> -->
     <menu-items name="lists" />
     <!-- <menu-items name="category" /> -->
   </ul>

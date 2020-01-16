@@ -8,6 +8,13 @@
             class="rounded-circle ml-2 mt-2"
             style="width:100%;"
             :src="data.image"
+            v-if="data.image != undefined"
+          />
+          <img
+            class="rounded-circle ml-2 mt-2"
+            style="height:auto;"
+            src="../../../assets/img/card.jpg"
+            v-else
           />
         </div>
       </div>

@@ -26,8 +26,8 @@
           <div class="col-md-3"></div>
           <div class="col-md-3" style="text-align:right;">
             <md-field class="md-toolbar-section-end" style="" >
-              <label id="columnsInputLabel" for="movies">Columns</label>
-              <md-select v-model="defaultColumns" multiple @md-selected="toggleSelectedColumn" md-dense>
+              <label id="columnsInputLabel" for="movies" style="display:none">Columns</label>
+              <md-select v-model="defaultColumns" id="columnSelection" multiple @md-selected="toggleSelectedColumn" >
                 <md-option
                   :key="index"
                   v-for="(col, index) in getColumns"
@@ -75,7 +75,7 @@
           md-label="Actions"
           style="font-size:11px;"
           >
-          <a href="#" @click="()=>viewCardDetails(item)">view details</a>
+          <a href="#" @click.prevent="()=>showEditCard(item)">view details</a>
         </md-table-cell>
 
         
@@ -96,7 +96,7 @@ export default {
     search: null,
     searched: [],
     selected: [],
-    defaultColumns:['cFirstname','cLastname','cType','cOrganization'],
+    defaultColumns:['cFirstname','cLastname','cDesignation','cOrganization','cEmail','cPhone'],
     selectedColumns:[],
     allColumns:[],
     columnsUpdated:false,
@@ -135,7 +135,11 @@ export default {
     viewCardDetails(card){
       // Error(card)
       this.selectedCard = card;
-    }
+    },
+    showEditCard(item) {
+      store.commit("setCardsSection", "edit");
+      store.commit("setSelectedCard", item);
+    },
   },
   computed: {
     getAllCards() {
@@ -143,8 +147,13 @@ export default {
       return  Array.from(store.state.filteredBusinessCards)
     },
     getColumns(){
-      console.log('columns:',this.getAllCards)
-      return Object.keys(this.getAllCards[0])
+      // console.log('columns:',this.getAllCards.length)
+      if(this.getAllCards[0] != undefined){
+        return Object.keys(this.getAllCards[0])
+      }else{
+        return []
+      }
+      
     }
   },
  
@@ -170,7 +179,7 @@ export default {
   },
   watch:{
     getAllCards(){
-      console.log(this.getAllCards)
+      // console.log(this.getAllCards)
       this.allCards = this.getAllCards
     }
   }
@@ -196,13 +205,19 @@ color:white;
 /* #columnsInputLabel{
   color:white !important;
 } */
+/* 
+.md-input{
+  display:none !important
+} */
 
-.md-menu.md-select input{
-  color:white;
+#columnsInputLabel{
+  display:none;
 }
 
-:-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+.md-menu.md-select {
+    display: flex;  
+    overflow: auto;
+    text-align: right;
 }
+
 </style>

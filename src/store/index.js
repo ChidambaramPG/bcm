@@ -151,8 +151,9 @@ export default new Vuex.Store({
         let tagPresent = false;
         
         state.tagFilterItems.forEach( gid => {
-          // console.log(item.tags,gid)
-            if(item.tags.includes(gid)){
+            // console.log(item.tags,gid)
+            var regex = new RegExp( item.tags.join( "|" ), "i");
+            if(regex.test(gid)){
               // console.log("tag present ==> ",item.tags.includes(gid))
               tagPresent = true;
             }
@@ -320,7 +321,7 @@ export default new Vuex.Store({
         if (term) {
           return items.filter(item =>
             toLower(
-              item.cFirstname + " " + item.cLastname + " " + item.cOrganizaton
+              item.cFirstname + " " + item.cLastname + " " + item.cOrganizaton + " " + item.cDesignation + " " + item.cEmail + " " + item.cPhone
             ).includes(toLower(term))
           );
         }

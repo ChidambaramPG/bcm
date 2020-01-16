@@ -84,7 +84,7 @@
               <md-field>
                 <label>First Name</label>
                 <md-input type="text" 
-                placeholder="John"
+                placeholder="Firstname"
                 v-model="cFirstname"></md-input>
               </md-field>
             </div>
@@ -99,7 +99,7 @@
               <md-field>
                 <label>Last Name</label>
                 <md-input type="text"
-                placeholder="Doe"
+                placeholder="Lastname"
                 v-model="cLastname"></md-input>
               </md-field>
             </div>
@@ -129,7 +129,7 @@
               /> -->
               <md-field>
                 <label>Organization</label>
-                <md-input placeholder="Hp, Dell, etc.."
+                <md-input placeholder="Organization"
                 v-model="cOrganization"></md-input>
               </md-field>
             </div>
@@ -156,7 +156,7 @@
               /> -->
               <md-field>
                 <label>Designation</label>
-                <md-input  placeholder="Manager, Head, Client, etc.."
+                <md-input  placeholder="Designation"
                 v-model="cDesignation"></md-input>
               </md-field>
             </div>
@@ -170,7 +170,7 @@
               /> -->
               <md-field>
                 <label>Email</label>
-                <md-input placeholder="somebody@somerwhere.com"
+                <md-input placeholder="Email"
                 v-model="cEmail"></md-input>
               </md-field>
             
@@ -189,7 +189,7 @@
 
               <md-field>
                 <label>Phone</label>
-                <md-input  placeholder="+919746747214"
+                <md-input  placeholder="Phone"
                 v-model="cPhone"></md-input>
               </md-field>
             </div>
@@ -203,7 +203,7 @@
               /> -->
                <md-field>
                 <label>Alternate Number</label>
-                <md-input   placeholder="+919746747214"
+                <md-input   placeholder="Alternate Number"
                 v-model="cAltPhone"></md-input>
               </md-field>
             </div>
@@ -217,7 +217,7 @@
               /> -->
               <md-field>
                 <label>Role</label>
-                <md-input   placeholder="Decission Maker"
+                <md-input   placeholder="Role"
                 v-model="cRole"></md-input>
               </md-field>
             </div>
@@ -233,7 +233,7 @@
               /> -->
               <md-field>
                 <label>Address</label>
-                <md-input  placeholder="12B Baker st"
+                <md-input  placeholder="Address"
                 v-model="cAddress"></md-input>
               </md-field>
             </div>
@@ -247,7 +247,7 @@
               /> -->
                <md-field>
                 <label>City</label>
-                <md-input placeholder="Cochin"
+                <md-input placeholder="City"
                 v-model="cCity"></md-input>
               </md-field>
             </div>
@@ -261,7 +261,7 @@
               /> -->
               <md-field>
                 <label>Pincode</label>
-                <md-input placeholder="pincode"
+                <md-input placeholder="Pincode"
                 v-model="cPincode"></md-input>
               </md-field>
             </div>
@@ -275,7 +275,7 @@
               /> -->
               <md-field>
                 <label>Country</label>
-                <md-input placeholder="India"
+                <md-input placeholder="Country"
                 v-model="cCountry"></md-input>
               </md-field>
             </div>

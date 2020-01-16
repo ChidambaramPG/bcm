@@ -1,5 +1,5 @@
 <template>
-  <section class="">
+  <section class="pt-5">
     <div class="row shadow p-2"> 
       <div class="col-md-1" style="text-align:left;color:#161e7a;">
         <a href="#" @click.prevent="handleBackToCards" ><i class="fas fa-arrow-left fa-sm"></i></a>
@@ -41,17 +41,19 @@
         <form action="" style="font-size:10px;">
           <div class="row">
             <div class="col-md-3">
-              <label for="exampleFormControlSelect1">Salutaton</label>
-              <select style="font-size:10px;" class="form-control" id="salutation" :value="getSelectedCard.salutation">
-                <option value="Mr">Mr</option>
-                <option value="Mrs">Mrs</option>
-                <option value="Ms">Ms</option>
-                <option value="Dr">Dr</option>
-                <option value="Other">Other</option>
-              </select>
+              <md-field>
+                <label for="exampleFormControlSelect1">Salutaton</label>
+                <md-select style="font-size:10px;" id="salutation" :value="getSelectedCard.salutation">
+                  <md-option value="Mr">Mr</md-option>
+                  <md-option value="Mrs">Mrs</md-option>
+                  <md-option value="Ms">Ms</md-option>
+                  <md-option value="Dr">Dr</md-option>
+                  <md-option value="Other">Other</md-option>
+                </md-select>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">First Name</label>
+              <!-- <label for="">First Name</label>
               <input
                 type="text"
                 class="form-control"
@@ -59,10 +61,17 @@
                 :value="getSelectedCard.cFirstname"
                 id="cFirstname"
                 style="font-size:10px;"
-              />
+              /> -->
+              <md-field>
+                <label>First Name</label>
+                <md-input type="text" 
+                placeholder="Firstname"
+                id="cFirstname"
+                :value="getSelectedCard.cFirstname"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Last Name</label>
+              <!-- <label for="">Last Name</label>
               <input
                 type="text"
                 class="form-control"
@@ -70,10 +79,17 @@
                 :value="getSelectedCard.cLastname"
                 id="cLastname"
                 style="font-size:10px;"
-              />
+              /> -->
+              <md-field>
+                <label>Last Name</label>
+                <md-input type="text"
+                placeholder="Lastname"
+                :value="getSelectedCard.cLastname"
+                id="cLastname"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;" >
-              <label for="exampleFormControlSelect1">Type</label>
+              <!-- <label for="exampleFormControlSelect1">Type</label>
               <select class="form-control" id="cType" :value="getSelectedCard.cType" style="font-size:10px;">
                 <option value="End Customer">End Customer</option>
                 <option value="Reseller">Reseller</option>
@@ -81,13 +97,24 @@
                 <option value="Commercal">Commercal</option>
                 <option value="Consumer">Consumer</option>
                 <option value="Component">Component</option>
-              </select>
+              </select> -->
+              <md-field>
+                <label for="movie">Type</label>
+                <md-select style="font-size:10px;" id="cType" :value="getSelectedCard.cType">
+                  <md-option value="End Customer">End Customer</md-option>
+                  <md-option value="Reseller">Reseller</md-option>
+                  <md-option value="OEM">OEM</md-option>
+                  <md-option value="Commercal">Commercal</md-option>
+                  <md-option value="Consumer">Consumer</md-option>
+                  <md-option value="Component">Component</md-option>
+                </md-select>
+              </md-field>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Organization</label>
+              <!-- <label for="">Organization</label>
               <input
                 type="text"
                 class="form-control"
@@ -95,10 +122,16 @@
                 :value="getSelectedCard.cOrganization"
                 id="cOrganization"
                 style="font-size:10px;"
-              />
+              /> -->
+              <md-field>
+                <label>Organization</label>
+                <md-input placeholder="Organization"
+                :value="getSelectedCard.cOrganization"
+                id="cOrganization"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="exampleFormControlSelect1">Tier</label>
+              <!-- <label for="exampleFormControlSelect1">Tier</label>
               <select class="form-control" id="cTier" style="font-size:10px;" :value="getSelectedCard.cTier">
                 <option value="Sales">Sales</option>
                 <option value="Procurement">Procurement</option>
@@ -107,10 +140,23 @@
                 <option value="Category">Category</option>
                 <option value="Marketing">Marketing</option>
                 <option value="Other">Other</option>
-              </select>
+              </select> -->
+              <md-field>
+                <label for="exampleFormControlSelect1">Tier</label>
+                <md-select id="cTier"  :value="getSelectedCard.cTier">
+                  <md-option value="Sales">Sales</md-option>
+                  <md-option value="Procurement">Procurement</md-option>
+                  <md-option value="IT Department">IT Department</md-option>
+                  <md-option value="Management">Management</md-option>
+                  <md-option value="Category">Category</md-option>
+                  <md-option value="Marketing">Marketing</md-option>
+                  <md-option value="Other">Other</md-option>
+                </md-select>
+
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Designation</label>
+              <!-- <label for="">Designation</label>
               <input
                 type="text"
                 class="form-control"
@@ -118,10 +164,16 @@
                 placeholder="Manager, Head, Client, etc.."
                 :value="getSelectedCard.cDesignation"
                 id="cDesignation"
-              />
+              /> -->
+              <md-field>
+                <label>Designation</label>
+                <md-input  placeholder="Designation"
+                :value="getSelectedCard.cDesignation"
+                id="cDesignation"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Email</label>
+              <!-- <label for="">Email</label>
               <input
                 type="text"
                 class="form-control"
@@ -129,13 +181,20 @@
                 :value="getSelectedCard.cEmail"
                 id="cEmail"
                 style="font-size:10px;"
-              />
+              /> -->
+               <md-field>
+                <label>Email</label>
+                <md-input placeholder="Email"
+                :value="getSelectedCard.cEmail"
+                id="cEmail"></md-input>
+              </md-field>
+            
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Phone</label>
+              <!-- <label for="">Phone</label>
               <input
                 type="text"
                 style="font-size:10px;"
@@ -143,10 +202,16 @@
                 placeholder="+919746747214"
                 :value="getSelectedCard.cPhone"
                 id="cPhone"
-              />
+              /> -->
+              <md-field>
+                <label>Phone</label>
+                <md-input  placeholder="Phone"
+                :value="getSelectedCard.cPhone"
+                id="cPhone"></md-input>
+              </md-field>
             </div>
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Alternate Number</label>
+              <!-- <label for="">Alternate Number</label>
               <input
                 type="text"
                 style="font-size:10px;"
@@ -154,10 +219,16 @@
                 placeholder="+919746747214"
                 :value="getSelectedCard.cAltPhone"
                 id="cAltPhone"
-              />
+              /> -->
+               <md-field>
+                <label>Alternate Number</label>
+                <md-input   placeholder="Alternate Number"
+                :value="getSelectedCard.cAltPhone"
+                id="cAltPhone"></md-input>
+              </md-field>
             </div>
             <div class="col-md-4" style="font-size:10px;">
-              <label for="">Role</label>
+              <!-- <label for="">Role</label>
               <input
                 type="text"
                 style="font-size:10px;"
@@ -165,12 +236,18 @@
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cRole"
                 id="cRole"
-              />
+              /> -->
+              <md-field>
+                <label>Role</label>
+                <md-input   placeholder="Role"
+                :value="getSelectedCard.cRole"
+                id="cRole"></md-input>
+              </md-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Address</label>
+              <!-- <label for="">Address</label>
               <input
                 type="text"
                 style="font-size:10px;"
@@ -178,10 +255,16 @@
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cAddress"
                 id="cAddress"
-              />
+              /> -->
+               <md-field>
+                <label>Address</label>
+                <md-input  placeholder="Address"
+                 :value="getSelectedCard.cAddress"
+                id="cAddress"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">City</label>
+              <!-- <label for="">City</label>
               <input
                 style="font-size:10px;"
                 type="text"
@@ -189,10 +272,16 @@
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cCity"
                 id="cCity"
-              />
+              /> -->
+               <md-field>
+                <label>City</label>
+                <md-input placeholder="City"
+                :value="getSelectedCard.cCity"
+                id="cCity"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Pincode</label>
+              <!-- <label for="">Pincode</label>
               <input
               style="font-size:10px;"
                 type="text"
@@ -200,10 +289,16 @@
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cPincode"
                 id="cPincode"
-              />
+              /> -->
+              <md-field>
+                <label>Pincode</label>
+                <md-input placeholder="Pincode"
+                :value="getSelectedCard.cPincode"
+                id="cPincode"></md-input>
+              </md-field>
             </div>
             <div class="col-md-3" style="font-size:10px;">
-              <label for="">Country</label>
+              <!-- <label for="">Country</label>
               <input
                 type="text"
                 style="font-size:10px;"
@@ -211,7 +306,13 @@
                 placeholder="Decission Maker"
                 :value="getSelectedCard.cCountry"
                 id="cCountry"
-              />
+              /> -->
+              <md-field>
+                <label>Country</label>
+                <md-input placeholder="Country"
+                :value="getSelectedCard.cCountry"
+                id="cCountry"></md-input>
+              </md-field>
             </div>
           </div>
 
