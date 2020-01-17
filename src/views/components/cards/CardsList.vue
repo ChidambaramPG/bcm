@@ -1,87 +1,23 @@
 <template>
   <div style="width:100%">
-    <md-table
-      style="font-size:10px;width:100%"
-      v-model="allCards"
-      md-sort="cFirstname"
-      md-sort-order="asc"
-      md-card
-      md-fixed-header
-      @md-selected="onSelect"
-    >
-      <md-table-toolbar>
-        <!-- <div class="md-toolbar-section-start">
-          <h1 class="md-title">Cards</h1>
-        </div> -->
-        <div class="row" style="width:100%;">
-          <div class="col-md-6">
-            <md-field md-clearable style="width:50%;margin-right:10px;" >
-              <md-input
-                placeholder="Search"
-                v-model="search"
-                @input="searchOnTable"
-              />
-            </md-field>
-          </div>
-          <div class="col-md-3"></div>
-          <div class="col-md-3" style="text-align:right;">
-            <md-field class="md-toolbar-section-end" style="" >
-              <label id="columnsInputLabel" for="movies" style="display:none">Columns</label>
-              <md-select v-model="defaultColumns" id="columnSelection" multiple @md-selected="toggleSelectedColumn" >
-                <md-option
-                  :key="index"
-                  v-for="(col, index) in getColumns"
-                  :name="col"
-                  :value="col"
-                  
-                  >{{ removeInitialC(col) }}</md-option
-                >
-              </md-select>
-            </md-field>
 
-          </div>
-        </div>
-        
-      </md-table-toolbar>
-
-      <md-table-empty-state
-        md-label="No card found!"
-        :md-description="
-          `No card found for this '${search}' query. Try a different search term.`
-        "
-      >
-      </md-table-empty-state>
-
-      <md-table-row
-        slot="md-table-row"
-        slot-scope="{ item }"
-        md-selectable="multiple"
-        md-auto-select
-      >
-        <md-table-cell
-          v-for="(column, index) in defaultColumns"
-          :key="index"
-          :md-label="removeInitialC(column)"
-          :md-sort-by="column"
-          >{{ item[column] }}</md-table-cell
-        >
-        <md-table-cell
-          md-label="Actions"
-          >
-          <a href="#" @click.prevent="()=>showEditCard(item)">view details</a>
-        </md-table-cell>
-
-        
-        
-      </md-table-row>
-    </md-table>
+    <datatable :columns="getColumns" :rows="getAllCards">
+      <template slot="tbody-tr" scope="props">
+        <td>
+          <button class="btn red darken-2 waves-effect waves-light compact-btn"
+            @click="() => showEditCard(props.row)">
+            <i class="medium material-icons white-text" style="color:#ff5252;">edit</i>
+          </button>
+        </td>
+      </template>
+    </datatable>
   </div>
 </template>
 
 <script>
 import store from "../../../store/index.js";
 // import firebase from 'firebase';
-
+import DataTable from "vue-materialize-datatable";
 
 export default {
   name: "CardsList",
@@ -89,7 +25,7 @@ export default {
     search: null,
     searched: [],
     selected: [],
-    defaultColumns:['cFirstname','cLastname','cDesignation','cOrganization','cEmail','cPhone'],
+    defaultColumns:['cFirstname','cLastname','cDesignation','cOrganization','cEmail','cPhone','Actions'],
     selectedColumns:[],
     allColumns:[],
     columnsUpdated:false,
@@ -97,6 +33,9 @@ export default {
     allCards:[]
   }),
   props: ["cards"],
+  components:{
+    "datatable": DataTable
+  },
   methods: {
     toggleSelectedColumn() {
       // console.log(event)
@@ -142,7 +81,21 @@ export default {
     getColumns(){
       // console.log('columns:',this.getAllCards.length)
       if(this.getAllCards[0] != undefined){
-        return Object.keys(this.getAllCards[0])
+        let keys = Object.keys(this.getAllCards[0]);
+        let temp = []
+        keys.slice(2).forEach(item => {
+
+          if(this.defaultColumns.includes(item)){
+            temp.push({
+              label:this.removeInitialC(item),
+              field:item,
+              numeric:false,
+              html:false
+            })
+          }
+          
+        })
+        return temp
       }else{
         return []
       }
@@ -181,6 +134,7 @@ export default {
 </script>
 
 <style scoped>
+
 /* .md-field {
     max-width: 300px;
   } */
@@ -211,6 +165,115 @@ color:white;
     display: flex;  
     overflow: auto;
     text-align: right;
+}
+
+table, th, td {
+  border: none;
+}
+
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table.striped tr {
+  border-bottom: none;
+}
+
+table.striped > tbody > tr:nth-child(odd) {
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+table.striped > tbody > tr > td {
+  border-radius: 0;
+}
+
+table.highlight > tbody > tr {
+  -webkit-transition: background-color .25s ease;
+  transition: background-color .25s ease;
+}
+
+table.highlight > tbody > tr:hover {
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+table.centered thead tr th, table.centered tbody tr td {
+  text-align: center;
+}
+
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+td, th {
+  padding: 15px 5px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+@media only screen and (max-width: 992px) {
+  table.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: block;
+    position: relative;
+    /* sort out borders */
+  }
+  table.responsive-table td:empty:before {
+    content: '\00a0';
+  }
+  table.responsive-table th,
+  table.responsive-table td {
+    margin: 0;
+    vertical-align: top;
+  }
+  table.responsive-table th {
+    text-align: left;
+  }
+  table.responsive-table thead {
+    display: block;
+    float: left;
+  }
+  table.responsive-table thead tr {
+    display: block;
+    padding: 0 10px 0 0;
+  }
+  table.responsive-table thead tr th::before {
+    content: "\00a0";
+  }
+  table.responsive-table tbody {
+    display: block;
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  table.responsive-table tbody tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  table.responsive-table th {
+    display: block;
+    text-align: right;
+  }
+  table.responsive-table td {
+    display: block;
+    min-height: 1.25em;
+    text-align: left;
+  }
+  table.responsive-table tr {
+    border-bottom: none;
+    padding: 0 10px;
+  }
+  table.responsive-table thead {
+    border: 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+  }
 }
 
 </style>

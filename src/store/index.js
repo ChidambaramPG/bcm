@@ -491,7 +491,7 @@ export default new Vuex.Store({
 
         handleRemoteFetchSelectedTagsCards: ({ state,dispatch }, payload) => {
 
-          let t1 = new Date()
+          // let t1 = new Date()
 
             if (state.tagFilterItems.length < 1) {
                 //// console.log('adding first tag')
@@ -521,7 +521,7 @@ export default new Vuex.Store({
                 }
             })
 
-            let t2 = new Date()
+            // let t2 = new Date()
 
             //console.log(t2-t1)
 
@@ -531,7 +531,7 @@ export default new Vuex.Store({
               dispatch('fetchAllBusinessCards')
             }else{
               //console.log(state.tagFilterItems)
-              let t3 = new Date()
+              // let t3 = new Date()
               let filterCards = firebase
                   .functions()
                   .httpsCallable("handleCardsFilterUsingTags");
@@ -549,11 +549,9 @@ export default new Vuex.Store({
                   
                   //console.log(temp)
                   state.filteredBusinessCards = temp;
-                  let t4 = new Date()
+                  // let t4 = new Date()
                   //console.log("fetch time:",t4-t3)
-              }).catch(err => {
-                  //console.log(err)
-              })
+              });
 
             }
 

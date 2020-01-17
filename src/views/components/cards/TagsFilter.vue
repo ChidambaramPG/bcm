@@ -1,44 +1,27 @@
 <template>
-  <ul class="tags-list list-inline">
+  <ul class="tags-list list-inline mt-3">
     <li
       class="tag-item list-inline-item "
       v-for="(tag, index) in getAllTags"
       :key="index"
-      style="padding:6px;"
     >
       <md-chip md-clickable :id="index"
         @click="event => hangleTagsSelection(event, tag)"
         v-if="tag.selected == false"
+        style="font-size:11px;"
       >{{ tag.gid }}</md-chip>
-      <!-- <span
-        class="item-name"
-        :id="index"
-        @click="event => hangleTagsSelection(event, tag)"
-        v-if="tag.selected == false"
-        style="background-color:#e9ebee;font-size:13px;color:#4b4f56;"
-        >{{ tag.gid }}</span
-      > -->
       <md-chip 
         class="md-primary" md-clickable :id="index"
         @click="event => hangleTagsSelection(event, tag)"
         v-else
       >{{ tag.gid }}</md-chip>
-      <!-- <span
-        class="item-name item-selected"
-        :id="index"
-        @click="event => hangleTagsSelection(event, tag)"
-        v-else
-        style="background-color:#3578e5;font-size:13px;"
-      >
-        {{ tag.gid }}</span
-      > -->
     </li>
     <br>
     <li  class="tag-item list-inline-item">
       <input
         class="form-control custom-tag-cat-input"
         v-model="catName"
-        style="font-size:9px;border-radius:10px;margin-top:5px;"
+        style="font-size:11px;border-radius:10px;margin-top:5px;padding:0px 30px;"
       />
     </li>
     <a href="#" >
@@ -106,14 +89,14 @@ export default {
     hangleBulkCategoryCreation() {
       if (this.catName != "") {
         if (this.getBulkSelectedCards.length > 0) {
-          console.log("bulk selectio n");
+          // console.log("bulk selectio n");
           let tempGpMembers = [];
           this.getBulkSelectedCards.forEach(item => {
             // if(item.selected){
             tempGpMembers.push(item.cid);
             // }
           });
-          console.log(tempGpMembers);
+          // console.log(tempGpMembers);
           firebase
             .firestore()
             .collection("Groups")
