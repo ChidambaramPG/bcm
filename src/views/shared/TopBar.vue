@@ -8,8 +8,10 @@
       <main-menu/>
     </div>
     
-    
-    
+    <div>
+      <md-progress-spinner v-if="isLoading" :md-diameter="30" :md-stroke="3" class="md-primary" md-mode="indeterminate"></md-progress-spinner>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="nav-item dropdown">
@@ -40,7 +42,7 @@ export default {
   name: "TopBar",
   components: {
     ProfileDropdown,
-    MainMenu
+    MainMenu,
   },
   methods: {
     toggleSidebar() {
@@ -56,7 +58,13 @@ export default {
     },
     toggleStat() {
       return store.state.sidebarVisible;
+    },
+    isLoading(){
+      return store.state.isLoading;
     }
+  },
+  updated(){
+    console.log(this.isLoading)
   }
 };
 </script>

@@ -42,10 +42,6 @@
           </div>
         </div>
         
-
-        
-
-        
       </md-table-toolbar>
 
       <md-table-empty-state
@@ -61,19 +57,16 @@
         slot-scope="{ item }"
         md-selectable="multiple"
         md-auto-select
-        style="font-size:10px;"
       >
         <md-table-cell
           v-for="(column, index) in defaultColumns"
           :key="index"
           :md-label="removeInitialC(column)"
           :md-sort-by="column"
-          style="font-size:11px;"
           >{{ item[column] }}</md-table-cell
         >
         <md-table-cell
           md-label="Actions"
-          style="font-size:11px;"
           >
           <a href="#" @click.prevent="()=>showEditCard(item)">view details</a>
         </md-table-cell>

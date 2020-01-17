@@ -6,15 +6,24 @@
       :key="index"
       style="padding:6px;"
     >
-      <span
+      <md-chip md-clickable :id="index"
+        @click="event => hangleTagsSelection(event, tag)"
+        v-if="tag.selected == false"
+      >{{ tag.gid }}</md-chip>
+      <!-- <span
         class="item-name"
         :id="index"
         @click="event => hangleTagsSelection(event, tag)"
         v-if="tag.selected == false"
         style="background-color:#e9ebee;font-size:13px;color:#4b4f56;"
         >{{ tag.gid }}</span
-      >
-      <span
+      > -->
+      <md-chip 
+        class="md-primary" md-clickable :id="index"
+        @click="event => hangleTagsSelection(event, tag)"
+        v-else
+      >{{ tag.gid }}</md-chip>
+      <!-- <span
         class="item-name item-selected"
         :id="index"
         @click="event => hangleTagsSelection(event, tag)"
@@ -22,7 +31,7 @@
         style="background-color:#3578e5;font-size:13px;"
       >
         {{ tag.gid }}</span
-      >
+      > -->
     </li>
     <br>
     <li  class="tag-item list-inline-item">
@@ -33,22 +42,20 @@
       />
     </li>
     <a href="#" >
-      <li class="tag-item list-inline-item">
-        <span
-          class="item-name create-group"
-          style="margin-right:5px;background-color:#2f973b"
+      <li class="">
+        <md-chip
+          class="md-primary"
           @click="() => hangleBulkTagCreation()"
-          ><i class="fas fa-plus"></i> Add Tag</span
+          ><i class="fas fa-plus"></i> Add Tag</md-chip
         >
       </li>
     </a>
     <a href="#" v-if="isItemSelected">
       <li class="tag-item list-inline-item">
-        <span
-          class="item-name create-group"
-          style="margin-right:5px;background-color:#f25e1f"
+        <md-chip
+          class="md-accent"
           @click="() => hangleBulkCategoryCreation()"
-          ><i class="fas fa-plus"></i> Create Group</span
+          ><i class="fas fa-plus"></i> Create Group</md-chip
         >
       </li>
     </a>
@@ -92,7 +99,8 @@ export default {
   },
   methods: {
     hangleTagsSelection(event, tag) {
-      store.commit("setSelectedTags", tag.gid);
+      // store.commit("setLoadingStatus",true)
+      store.dispatch("handleRemoteFetchSelectedTagsCards", tag.gid);
       this.tagsSelected.push(tag);
     },
     hangleBulkCategoryCreation() {

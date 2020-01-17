@@ -4,17 +4,17 @@
       <div class="row table-row">
         <div class="col-md-2">
           <div class="filter-header">
-            <h5 class="table-title" style="font-weight:600;font-size:12px;color:#161e7a;">
+            <h5 class="table-title" style="font-weight:600;font-size:14px;color:#161e7a;">
               {{"Filters".toUpperCase()}}</h5>
             <tags-filter />
           </div>
         </div>
-        <div class="col-md-10  pl-4 cards-section">
-          <div class="row mb-4 pt-3 pb-3">
+        <div class="col-md-10  pl-4 pt-3 cards-section">
+          <div class="row mb-4">
             <div class="col-md-10" style="padding-left:0px;">
               <span 
                 class="table-title" 
-                style="font-weight:600;font-size:12px;color:#161e7a">{{"Contacts".toUpperCase()}}
+                style="font-weight:600;font-size:14px;color:#161e7a">{{"Contacts".toUpperCase()}}
               </span>
             </div>
             <div class="col-md-2" v-if="selectedView =='list'" style="text-align:right">
@@ -37,8 +37,8 @@
             </div>
           </div>
           
-          <div class="row mb-4" v-if="selectedView=='card'">
-            <single-card :data="card" v-for="(card, index) in getAllCards" :key="index"/>
+          <div class="" v-if="selectedView=='card'">
+            <rect-card-list :cards="getAllCards"/>
           </div>
 
           <div class="row mb-4" v-if="selectedView=='list'">
@@ -55,8 +55,9 @@
 import store from "../../../store/index.js";
 // import TagSection from "./TagSection.vue";
 import TagsFilter from "./TagsFilter.vue";
-import SingleCard from "./SingaleCard.vue";
+// import SingleCard from "./SingaleCard.vue";
 import CardsList from "./CardsList.vue";
+import RectCardList from "./RectCardList.vue";
 
 export default {
   name: "BusinessCards",
@@ -70,8 +71,9 @@ export default {
   components: {
     // TagSection,
     TagsFilter,
-    SingleCard,
+    // SingleCard,
     CardsList,
+    RectCardList
   },
   methods: {
     // showDeleteItemDiv(){
@@ -79,7 +81,7 @@ export default {
     // },
     changeView(view){
       this.selectedView = view;
-      store.commit('setBulkSelectedCardList',{status:false,items:[]})
+      // store.commit('setBulkSelectedCardList',{status:false,items:[]})
     },
     showEditCardsModal() {
       store.commit("toggleEditCardModal");

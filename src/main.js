@@ -28,6 +28,7 @@ firebase.auth().onAuthStateChanged(() => {
   
   if (!app) {
     Vue.config.productionTip = false;
+    Vue.config.performance = true;
     Vue.use(VueMaterial);
     app = new Vue({
       router,
