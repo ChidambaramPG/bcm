@@ -1,6 +1,5 @@
 <template>
   <div style="width:100%">
-
     <datatable :columns="getColumns" :rows="getAllCards">
       <template slot="tbody-tr" scope="props">
         <td>
@@ -9,6 +8,7 @@
             <i class="medium material-icons white-text" style="color:#ff5252;">edit</i>
           </button>
         </td>
+        
       </template>
     </datatable>
   </div>

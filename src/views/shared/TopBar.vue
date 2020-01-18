@@ -63,9 +63,6 @@ export default {
       return store.state.isLoading;
     }
   },
-  updated(){
-    console.log(this.isLoading)
-  }
 };
 </script>
 
